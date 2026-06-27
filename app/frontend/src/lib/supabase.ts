@@ -8,7 +8,17 @@ export const SUPABASE_CONFIGURED = Boolean(url && key);
 // ponytail: dummy client when env is missing so the app still boots locally.
 // Public-site code must always check SUPABASE_CONFIGURED before calling.
 export const supabase = SUPABASE_CONFIGURED
-  ? createClient(url!, key!, { auth: { persistSession: true, autoRefreshToken: true } })
+  ? createClient(url!, key!, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        // Implicit flow: magic links carry the session in the URL hash
+        // (#access_token=...). Robust for email links opened in any browser —
+        // PKCE would require the same client that requested the link.
+        flowType: 'implicit',
+      },
+    })
   : (createClient('http://localhost:0', 'placeholder', { auth: { persistSession: false } }));
 
 export const MEDIA_BUCKET = 'media';

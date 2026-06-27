@@ -71,14 +71,15 @@ function ServiceCard({
 }
 
 /**
- * Left-rail sticky table of contents — desktop only.
+ * Right-rail sticky table of contents — desktop only.
+ * Sticks to the viewport as the service blocks scroll past on the left.
  * Active index is driven by IntersectionObserver on the service blocks.
  */
 function ServiceRail({ activeIndex }: { activeIndex: number }) {
   const { t } = useLanguage();
   return (
-    <aside className="hidden lg:block sticky top-32 self-start col-span-3">
-      <div className="flex flex-col gap-1">
+    <aside className="hidden lg:block lg:col-span-3">
+      <div className="sticky top-28 self-start flex flex-col gap-1">
         <span className="font-body text-[10px] tracking-[0.5em] uppercase text-bronze-warm mb-6">
           {t('house.label')}
         </span>
@@ -151,8 +152,7 @@ export default function TheHouse() {
         </header>
 
         <div className="lg:grid lg:grid-cols-12 lg:gap-10">
-          <ServiceRail activeIndex={activeIndex} />
-
+          {/* Content scrolls on the left; the rail sticks on the right (desktop) */}
           <div className="lg:col-span-9 space-y-24 md:space-y-32">
             {serviceKeys.map((sk, index) => (
               <div key={sk.title} ref={(el) => { blocksRef.current[index] = el; }}>
@@ -166,6 +166,8 @@ export default function TheHouse() {
               </div>
             ))}
           </div>
+
+          <ServiceRail activeIndex={activeIndex} />
         </div>
       </div>
     </section>

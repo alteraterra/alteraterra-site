@@ -87,9 +87,9 @@ async function fetchPublishedPosts() {
   // Pull a generous set of columns and tolerate missing ones (Supabase will
   // 400 on an unknown column; we retry with a smaller projection in that case).
   const fullSelect =
-    "slug,lang,title,description,summary_for_llm,key_takeaways,body,body_html,content,content_html,markdown,published_at,updated_at";
+    "slug,lang,title,excerpt,seo_description,summary_for_llm,key_takeaways,faq_blocks,blocks,category,published_at,updated_at";
   const minimalSelect =
-    "slug,lang,title,description,summary_for_llm,published_at,updated_at";
+    "slug,lang,title,excerpt,summary_for_llm,published_at,updated_at";
 
   for (const select of [fullSelect, minimalSelect]) {
     const endpoint = `${SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/blog_posts?select=${select}&status=eq.published&order=published_at.desc`;
@@ -116,14 +116,39 @@ async function fetchPublishedPosts() {
 }
 
 function postBodyPlain(post) {
-  const raw =
-    post.body ||
-    post.body_html ||
-    post.content ||
-    post.content_html ||
-    post.markdown ||
-    "";
-  return htmlToPlainText(raw);
+  // Body is stored as a TipTap-style Block[] array in `blocks` (jsonb).
+  const blocks = post.blocks;
+  if (Array.isArray(blocks) && blocks.length) {
+    const parts = [];
+    for (const b of blocks) {
+      if (!b || typeof b !== "object") continue;
+      switch (b.type) {
+        case "paragraph":
+        case "callout":
+          parts.push(htmlToPlainText(b.html || ""));
+          break;
+        case "heading":
+          parts.push(htmlToPlainText(b.text || ""));
+          break;
+        case "quote":
+          parts.push(htmlToPlainText(b.text || ""));
+          break;
+        case "image":
+          if (b.caption) parts.push(htmlToPlainText(b.caption));
+          break;
+        case "faq":
+          for (const item of b.items || []) {
+            if (item?.question) parts.push(htmlToPlainText(item.question));
+            if (item?.answer) parts.push(htmlToPlainText(item.answer));
+          }
+          break;
+        default:
+          break;
+      }
+    }
+    return parts.filter(Boolean).join("\n\n");
+  }
+  return "";
 }
 
 function renderTakeaways(post) {
@@ -154,7 +179,7 @@ function renderPost(post) {
     lines.push(`Updated: ${post.updated_at}`);
   }
   lines.push(``);
-  const summary = post.summary_for_llm || post.description;
+  const summary = post.summary_for_llm || post.excerpt || post.seo_description;
   if (summary) {
     lines.push(`Summary:`);
     lines.push(String(summary).trim());

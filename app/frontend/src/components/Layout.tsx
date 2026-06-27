@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   return (
-    <div className="min-h-[100dvh] flex flex-col overflow-x-hidden">
+    <div className="min-h-[100dvh] flex flex-col overflow-x-clip">
       {/* Skip link — visible only on keyboard focus */}
       <a
         href="#main"
