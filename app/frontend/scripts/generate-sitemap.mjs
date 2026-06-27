@@ -35,6 +35,7 @@ const SITE_URL = (process.env.VITE_SITE_URL || "https://alteraterra.vip").replac
 );
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY;
+console.log(`[sitemap] SUPABASE_URL=${SUPABASE_URL ? 'set' : 'unset'} SUPABASE_KEY=${SUPABASE_KEY ? 'set' : 'unset'} SITE_URL=${process.env.VITE_SITE_URL || '(default)'}`);
 
 const STATIC_ROUTES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },

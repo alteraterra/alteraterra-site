@@ -4,8 +4,7 @@
   "packageManager": "pnpm@8.10.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "postbuild": "node scripts/generate-sitemap.mjs && node scripts/generate-llms-full.mjs",
+    "build": "vite build && node scripts/generate-sitemap.mjs && node scripts/generate-llms-full.mjs",
     "lint": "eslint --quiet ./src",
     "preview": "vite preview",
     "postinstall": "echo 'Dependencies installed successfully'"
