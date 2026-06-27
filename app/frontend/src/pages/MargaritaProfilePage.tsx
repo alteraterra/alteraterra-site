@@ -2,11 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 
 export default function MargaritaProfilePage() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const { t } = useLanguage();
+  const { section } = useContent();
+
+  const profile = section('profiles')?.['margarita-arango'];
+  const name = profile?.name || 'Margarita Arango';
+  const role = profile?.role || t('margarita.role');
+  const image = profile?.image || '/assets/margarita-arango.jpg';
+  const imageAlt = profile?.imageAlt || 'Margarita Arango';
+  const objectPosition = profile?.objectPosition || 'center';
+  const bio = profile?.bio ?? [t('margarita.p1')];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,9 +55,10 @@ export default function MargaritaProfilePage() {
               <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden">
                 <div className="absolute inset-0 rounded-full border border-white/[0.06] z-10" />
                 <img
-                  src="/assets/margarita-arango.jpg"
-                  alt="Margarita Arango"
-                  className="w-full h-full object-cover object-center"
+                  src={image}
+                  alt={imageAlt}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition }}
                 />
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-deepblack/40 via-transparent to-transparent" />
               </div>
@@ -60,19 +71,26 @@ export default function MargaritaProfilePage() {
               </span>
 
               <h1 className="font-display text-3xl md:text-4xl font-light text-white/90 leading-relaxed">
-                Margarita Arango
+                {name}
               </h1>
 
               <p className="mt-3 font-body text-[12px] tracking-[0.25em] uppercase text-bronze/75">
-                {t('margarita.role')}
+                {role}
               </p>
 
               <div className="mt-10 mx-auto h-px w-10 bg-gradient-to-r from-bronze/30 to-transparent" />
 
               <div className="mt-10 space-y-6">
-                <p className="font-body text-[13px] leading-[2.2] text-white/70 italic">
-                  {t('margarita.p1')}
-                </p>
+                {bio.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={`font-body text-[13px] leading-[2.2] text-white/70${
+                      i === bio.length - 1 ? ' italic' : ''
+                    }`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
 
               {/* CTA */}

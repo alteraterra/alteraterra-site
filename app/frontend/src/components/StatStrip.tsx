@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '@/hooks/useReveal';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 
 interface Stat {
   value: number;
@@ -56,6 +57,23 @@ function AnimatedNumber({
 export default function StatStrip() {
   const { ref, visible } = useReveal<HTMLDivElement>({ threshold: 0.4 });
   const { t } = useLanguage();
+  const { section } = useContent();
+
+  const cmsItems = section('stats')?.items;
+  const items =
+    cmsItems && cmsItems.length > 0
+      ? cmsItems.map((it, i) => ({
+          key: `cms-${i}`,
+          value: it.value ?? 0,
+          suffix: it.suffix ?? '',
+          label: it.label ?? '',
+        }))
+      : STATS.map((s) => ({
+          key: s.labelKey,
+          value: s.value,
+          suffix: s.suffixKey ? t(s.suffixKey) : '',
+          label: t(s.labelKey),
+        }));
 
   return (
     <section className="bg-deepblack py-20 md:py-24 border-t border-white/[0.04]">
@@ -63,14 +81,14 @@ export default function StatStrip() {
         ref={ref}
         className={`mx-auto max-w-6xl px-8 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 reveal-up ${visible ? 'revealed' : ''}`}
       >
-        {STATS.map((s, i) => (
-          <div key={s.labelKey} className="text-center" style={{ transitionDelay: `${i * 90}ms` }}>
+        {items.map((s, i) => (
+          <div key={s.key} className="text-center" style={{ transitionDelay: `${i * 90}ms` }}>
             <div className="font-display text-4xl sm:text-5xl md:text-6xl font-normal text-white/95 tracking-[-0.02em] leading-none">
-              <AnimatedNumber to={s.value} suffix={s.suffixKey ? t(s.suffixKey) : ''} start={visible} />
+              <AnimatedNumber to={s.value} suffix={s.suffix} start={visible} />
             </div>
             <div className="mx-auto mt-5 h-px w-6 bg-bronze-warm/60" />
             <p className="mt-5 font-body text-[11px] tracking-[0.35em] uppercase text-white/65">
-              {t(s.labelKey)}
+              {s.label}
             </p>
           </div>
         ))}

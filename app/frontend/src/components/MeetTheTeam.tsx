@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 import { useReveal } from '@/hooks/useReveal';
 import StatStrip from '@/components/StatStrip';
 import Hairline from '@/components/Hairline';
@@ -34,6 +35,47 @@ const pillarKeys = [
 export default function MeetTheTeam() {
   const { ref, visible } = useReveal<HTMLElement>({ threshold: 0.1 });
   const { t } = useLanguage();
+  const { text, img, section } = useContent();
+
+  // CMS-managed team members, falling back to the hardcoded list when absent/empty.
+  // Each entry is normalized to a uniform shape so the JSX below renders identically
+  // regardless of source (CMS `role` is literal copy; fallback resolves via i18n).
+  const cmsMembers = section('team')?.members;
+  const members =
+    cmsMembers && cmsMembers.length > 0
+      ? cmsMembers.map((m, i) => ({
+          key: m.slug ?? m.name ?? `team-${i}`,
+          name: m.name ?? '',
+          role: m.role ?? '',
+          slug: m.slug ?? '',
+          image: m.image ?? '',
+          objectPosition: m.objectPosition,
+          imgClassName: '',
+        }))
+      : teamMembers.map((m) => ({
+          key: m.name,
+          name: m.name,
+          role: t(m.roleKey),
+          slug: m.slug,
+          image: m.image,
+          objectPosition: m.objectPosition,
+          imgClassName: m.imgClassName,
+        }));
+
+  // CMS-managed pillars, falling back to the hardcoded i18n keys when absent/empty.
+  const cmsPillars = section('team')?.pillars;
+  const pillars =
+    cmsPillars && cmsPillars.length > 0
+      ? cmsPillars.map((p, i) => ({
+          key: `cms-pillar-${i}`,
+          label: p.label ?? '',
+          desc: p.desc ?? '',
+        }))
+      : pillarKeys.map((p) => ({
+          key: p.label,
+          label: t(p.label),
+          desc: t(p.desc),
+        }));
 
   return (
     <section
@@ -49,24 +91,24 @@ export default function MeetTheTeam() {
         }`}
       >
         <span className="font-body text-[11px] tracking-[0.5em] uppercase text-bronze/75 block mb-6">
-          {t('team.label')}
+          {text('team.label', 'team.label')}
         </span>
 
         <h2 className="font-display text-3xl font-normal text-white/95 sm:text-4xl md:text-5xl leading-tight tracking-[-0.01em] px-2">
-          {t('team.title')}
+          {text('team.title', 'team.title')}
         </h2>
 
         <p className="mt-7 font-body text-[15px] sm:text-base leading-[1.85] text-white/75 max-w-xl mx-auto">
-          {t('team.subtitle')}
+          {text('team.subtitle', 'team.subtitle')}
         </p>
       </div>
 
       {/* Team Members Portraits */}
       <div className="mx-auto max-w-3xl px-8 mt-20 md:mt-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {teamMembers.map((member, i) => (
+          {members.map((member, i) => (
             <Link
-              key={member.name}
+              key={member.key}
               to={member.slug}
               className={`group text-center transition-all duration-1000 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -75,26 +117,12 @@ export default function MeetTheTeam() {
             >
               <div className="relative mx-auto w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden mb-8">
                 <div className="absolute inset-0 rounded-full border border-white/[0.06] group-hover:border-bronze/20 transition-colors duration-700 z-10" />
-                {'useBackground' in member && member.useBackground ? (
-                  <div
-                    role="img"
-                    aria-label={member.name}
-                    className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-[1.03]"
-                    style={{
-                      backgroundImage: `url(${member.image})`,
-                      backgroundSize: '180% auto',
-                      backgroundPosition: '15% 15%',
-                      backgroundRepeat: 'no-repeat',
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className={`w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 ${member.imgClassName || ''} ${!member.imgClassName ? 'group-hover:scale-[1.03]' : ''}`}
-                    style={{ objectPosition: member.objectPosition }}
-                  />
-                )}
+                <img
+                  src={img(`team.members.${i}.image`, member.image)}
+                  alt={member.name}
+                  className={`w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 ${member.imgClassName || ''} ${!member.imgClassName ? 'group-hover:scale-[1.03]' : ''}`}
+                  style={{ objectPosition: member.objectPosition }}
+                />
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-deepblack/60 via-transparent to-transparent" />
               </div>
 
@@ -102,11 +130,11 @@ export default function MeetTheTeam() {
                 {member.name}
               </h3>
               <p className="mt-2 font-body text-xs tracking-[0.25em] uppercase text-bronze group-hover:text-bronze/90 transition-colors duration-700">
-                {t(member.roleKey)}
+                {member.role}
               </p>
 
               <span className="mt-5 inline-block font-body text-[11px] tracking-[0.35em] uppercase text-white/70 group-hover:text-white group-hover:tracking-[0.45em] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                {t('team.viewprofile')}
+                {text('team.viewprofile', 'team.viewprofile')}
               </span>
             </Link>
           ))}
@@ -116,8 +144,8 @@ export default function MeetTheTeam() {
       {/* Pillars grid */}
       <div className="mx-auto max-w-5xl px-8 mt-24 md:mt-32">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          {pillarKeys.map((pillar, i) => (
-            <Fragment key={pillar.label}>
+          {pillars.map((pillar, i) => (
+            <Fragment key={pillar.key}>
               {/* Mobile-only hairline divider between stacked pillars */}
               {i > 0 && (
                 <div className="md:hidden my-8">
@@ -141,11 +169,11 @@ export default function MeetTheTeam() {
                 </span>
 
                 <h3 className="font-display text-2xl font-normal text-white/95 tracking-wide mb-5">
-                  {t(pillar.label)}
+                  {pillar.label}
                 </h3>
 
                 <p className="font-body text-sm leading-[1.85] text-white/80">
-                  {t(pillar.desc)}
+                  {pillar.desc}
                 </p>
               </div>
             </Fragment>
@@ -161,13 +189,13 @@ export default function MeetTheTeam() {
         style={{ transitionDelay: visible ? '1200ms' : '0ms' }}
       >
         <blockquote className="font-display text-xl md:text-2xl font-normal italic text-white/85 leading-relaxed">
-          {t('team.quote')}
+          {text('team.quote', 'team.quote')}
         </blockquote>
 
         <div className="mt-8 mx-auto h-px w-8 bg-bronze/25" />
 
         <p className="mt-8 font-body text-[11px] tracking-[0.3em] uppercase text-white/70">
-          {t('team.founded')}
+          {text('team.founded', 'team.founded')}
         </p>
       </div>
 

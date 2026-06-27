@@ -1,5 +1,6 @@
 import { useId, useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 import { useReveal } from '@/hooks/useReveal';
 
 export default function Newsletter() {
@@ -9,6 +10,7 @@ export default function Newsletter() {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { t } = useLanguage();
+  const { text } = useContent();
 
   const emailId = useId();
   const emailErrorId = useId();
@@ -64,28 +66,28 @@ export default function Newsletter() {
           <div className="mx-auto mb-10 h-px w-10 bg-gradient-to-r from-transparent via-bronze/40 to-transparent" />
 
           <span aria-hidden="true" className="font-body text-[11px] tracking-[0.5em] uppercase text-bronze/75 block mb-6">
-            {t('newsletter.label')}
+            {text('newsletter.label', 'newsletter.label')}
           </span>
 
           <h2 className="font-display text-3xl font-normal text-white/95 sm:text-4xl md:text-5xl leading-tight tracking-[-0.01em] px-2">
-            {t('newsletter.title')}
+            {text('newsletter.title', 'newsletter.title')}
           </h2>
 
           <p className="mt-6 font-body text-[15px] sm:text-base leading-[1.85] text-white/75 max-w-md mx-auto">
-            {t('newsletter.subtitle')}
+            {text('newsletter.subtitle', 'newsletter.subtitle')}
           </p>
 
           {!submitted ? (
             <form onSubmit={handleSubmit} noValidate className="mt-12 flex flex-col sm:flex-row items-center gap-4 max-w-md mx-auto">
               <label htmlFor={emailId} className="sr-only">
-                {t('newsletter.placeholder')}
+                {text('newsletter.placeholder', 'newsletter.placeholder')}
               </label>
               <input
                 id={emailId}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={t('newsletter.placeholder')}
+                placeholder={text('newsletter.placeholder', 'newsletter.placeholder')}
                 required
                 aria-invalid={!!error}
                 aria-describedby={error ? emailErrorId : undefined}
@@ -96,13 +98,13 @@ export default function Newsletter() {
                 disabled={submitting}
                 className="shrink-0 group font-body text-xs tracking-[0.35em] uppercase text-white/85 border border-bronze/50 px-10 py-4 hover:text-white hover:border-bronze hover:bg-bronze/5 transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                <span className="inline-block">{t('newsletter.subscribe')}</span>
+                <span className="inline-block">{text('newsletter.subscribe', 'newsletter.subscribe')}</span>
               </button>
             </form>
           ) : (
             <div className="mt-12" role="status" aria-live="polite">
               <p className="font-display text-lg font-light text-bronze/70 italic">
-                {t('newsletter.thanks')}
+                {text('newsletter.thanks', 'newsletter.thanks')}
               </p>
             </div>
           )}
@@ -118,7 +120,7 @@ export default function Newsletter() {
           )}
 
           <p className="mt-8 font-body text-[11px] tracking-[0.1em] text-white/70">
-            {t('newsletter.privacy')}
+            {text('newsletter.privacy', 'newsletter.privacy')}
           </p>
         </div>
       </div>

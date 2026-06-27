@@ -1,14 +1,19 @@
-import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { text, section } = useContent();
+
+  const cities =
+    section('footer')?.cities?.length
+      ? section('footer')!.cities!
+      : ['Paris', 'Madrid', 'Athens'];
 
   return (
     <footer className="bg-deepblack border-t border-white/[0.04] py-16 md:py-20">
       <div className="mx-auto max-w-4xl px-8">
         {/* Locations */}
         <div className="flex flex-wrap justify-center gap-8 mb-10">
-          {['Paris', 'Madrid', 'Athens'].map((city) => (
+          {cities.map((city) => (
             <span
               key={city}
               className="font-body text-xs tracking-[0.3em] uppercase text-white/70"
@@ -21,7 +26,7 @@ export default function Footer() {
         {/* Instagram */}
         <div className="flex justify-center mb-10">
           <a
-            href="https://www.instagram.com/terraaltera/"
+            href={text('footer.instagramUrl', 'https://www.instagram.com/terraaltera/')}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 text-white/75 hover:text-bronze transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -44,7 +49,7 @@ export default function Footer() {
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
             </svg>
             <span className="font-body text-xs tracking-[0.3em] uppercase">
-              @terraaltera
+              {text('footer.instagramHandle', '@terraaltera')}
             </span>
           </a>
         </div>
@@ -52,14 +57,14 @@ export default function Footer() {
         {/* Curated by */}
         <div className="text-center mb-8">
           <p className="font-body text-[11px] tracking-[0.25em] uppercase text-white/70">
-            {t('footer.curatedby')}{' '}
+            {text('footer.curatedby', 'footer.curatedby')}{' '}
             <a
-              href="https://foratravel.com"
+              href={text('footer.partnerUrl', 'https://foratravel.com')}
               target="_blank"
               rel="noopener noreferrer"
               className="text-bronze/70 hover:text-bronze transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             >
-              Fora Travel
+              {text('footer.partnerText', 'Fora Travel')}
             </a>
             .
           </p>
@@ -67,13 +72,13 @@ export default function Footer() {
 
         {/* Domain */}
         <p className="text-center font-body text-[11px] tracking-[0.2em] text-white/70 mb-4">
-          alteraterra.vip
+          {text('footer.domain', 'alteraterra.vip')}
         </p>
 
         <div className="mx-auto h-px w-10 bg-bronze/30 mb-5" />
 
         <p className="text-center font-body text-[11px] tracking-[0.15em] text-white/70 mb-3">
-          {t('footer.rights').replace('{year}', String(new Date().getFullYear()))}
+          {text('footer.rights', 'footer.rights').replace('{year}', String(new Date().getFullYear()))}
         </p>
 
         <nav aria-label="Legal" className="flex items-center justify-center gap-5 text-[11px] tracking-[0.2em] uppercase">

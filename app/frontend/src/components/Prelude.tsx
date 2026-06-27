@@ -1,9 +1,9 @@
-import { useLanguage } from '@/i18n/LanguageContext';
 import { useReveal } from '@/hooks/useReveal';
+import { useContent } from '@/content/SiteContentContext';
 
 function PreludeText() {
   const { ref, visible } = useReveal<HTMLElement>({ threshold: 0.15 });
-  const { t } = useLanguage();
+  const { text } = useContent();
 
   return (
     <section
@@ -25,9 +25,9 @@ function PreludeText() {
           }`}
         >
           {(() => {
-            const text = t('prelude.p1');
-            const first = text.charAt(0);
-            const rest = text.slice(1);
+            const p1 = text('prelude.p1', 'prelude.p1');
+            const first = p1.charAt(0);
+            const rest = p1.slice(1);
             return (
               <>
                 <span className="float-left font-display text-[3.5rem] sm:text-[5rem] md:text-[6rem] leading-[0.72] mr-3 sm:mr-4 mt-1 text-bronze-warm/70 font-normal select-none">
@@ -45,7 +45,7 @@ function PreludeText() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          {t('prelude.p2')}
+          {text('prelude.p2', 'prelude.p2')}
         </p>
 
         <div
@@ -60,7 +60,7 @@ function PreludeText() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          {t('prelude.p3')}
+          {text('prelude.p3', 'prelude.p3')}
         </p>
       </div>
     </section>
@@ -69,14 +69,14 @@ function PreludeText() {
 
 function PrivateWorld() {
   const { ref, visible } = useReveal<HTMLElement>({ threshold: 0.1 });
-  const { t } = useLanguage();
+  const { text, img } = useContent();
 
   return (
     <section ref={ref} className="relative">
       <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
         <img
-          src="/santorini.jpg"
-          alt="Whitewashed Cycladic village at twilight"
+          src={img('prelude.image', '/santorini.jpg')}
+          alt={text('prelude.imageAlt', 'Whitewashed Cycladic village at twilight')}
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"
@@ -90,21 +90,21 @@ function PrivateWorld() {
               visible ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {t('prelude.private')}
+            {text('prelude.private', 'prelude.private')}
           </p>
           <blockquote
             className={`font-display text-xl font-normal leading-[1.5] text-white text-center max-w-3xl italic sm:text-3xl md:text-4xl lg:text-[2.5rem] transition-all duration-1000 delay-300 ${
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
             }`}
           >
-            {t('prelude.quote')}
+            {text('prelude.quote', 'prelude.quote')}
           </blockquote>
           <p
             className={`mt-10 font-display text-lg font-normal tracking-[0.15em] text-bronze italic transition-all duration-1000 delay-500 ${
               visible ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {t('prelude.closing')}
+            {text('prelude.closing', 'prelude.closing')}
           </p>
         </div>
       </div>

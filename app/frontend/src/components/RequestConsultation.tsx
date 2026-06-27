@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import { client } from '@/lib/api';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 import {
   Select,
   SelectContent,
@@ -16,6 +17,24 @@ export default function RequestConsultation() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const { t } = useLanguage();
+  const { text, section } = useContent();
+
+  // Interests: CMS-driven (value locked, label editable) with hardcoded fallback.
+  const interestFallback = [
+    { value: 'curated-journeys', label: t('consult.interest.journeys') },
+    { value: 'private-access', label: t('consult.interest.access') },
+    { value: 'cultural-immersion', label: t('consult.interest.cultural') },
+    { value: 'lifestyle-curation', label: t('consult.interest.lifestyle') },
+    { value: 'other', label: t('consult.interest.other') },
+  ];
+  const interestsRaw = section('consult')?.interests;
+  const interests =
+    interestsRaw && interestsRaw.length > 0
+      ? interestsRaw.map((it, i) => ({
+          value: it.value ?? interestFallback[i]?.value ?? '',
+          label: it.label ?? interestFallback[i]?.label ?? '',
+        }))
+      : interestFallback;
 
   // Form state
   const [fullName, setFullName] = useState('');
@@ -129,7 +148,7 @@ export default function RequestConsultation() {
     }
   };
 
-  const captchaQuestion = t('consult.captcha.q')
+  const captchaQuestion = text('consult.captchaQ', 'consult.captcha.q')
     .replace('{a}', String(captcha.a))
     .replace('{b}', String(captcha.b));
 
@@ -148,15 +167,15 @@ export default function RequestConsultation() {
 
           <div className="text-center mb-16">
             <span aria-hidden="true" className="font-body text-[11px] tracking-[0.5em] uppercase text-bronze/75 block mb-6">
-              {t('consult.label')}
+              {text('consult.label', 'consult.label')}
             </span>
 
             <h2 className="font-display text-3xl font-normal text-white/95 sm:text-4xl md:text-5xl leading-tight tracking-[-0.01em] px-2">
-              {t('consult.title')}
+              {text('consult.title', 'consult.title')}
             </h2>
 
             <p className="mt-8 font-body text-[15px] leading-[1.85] text-white/75 max-w-md mx-auto">
-              {t('consult.subtitle')}
+              {text('consult.subtitle', 'consult.subtitle')}
             </p>
           </div>
 
@@ -168,15 +187,15 @@ export default function RequestConsultation() {
             >
               <div className="mx-auto mb-8 h-px w-10 bg-gradient-to-r from-transparent via-bronze/40 to-transparent" />
               <h3 className="font-display text-2xl font-light text-white/80 mb-8">
-                {t('consult.thanks.title')}
+                {text('consult.thanks.title', 'consult.thanks.title')}
               </h3>
               <div className="font-body text-[15px] leading-[1.85] text-white/75 max-w-md mx-auto text-left space-y-4">
-                <p>{t('consult.thanks.dear')}</p>
-                <p>{t('consult.thanks.p1')}</p>
-                <p>{t('consult.thanks.p2')}</p>
-                <p>{t('consult.thanks.p3')}</p>
-                <p>{t('consult.thanks.p4')}</p>
-                <p className="mt-6">{t('consult.thanks.yours')}</p>
+                <p>{text('consult.thanks.dear', 'consult.thanks.dear')}</p>
+                <p>{text('consult.thanks.p1', 'consult.thanks.p1')}</p>
+                <p>{text('consult.thanks.p2', 'consult.thanks.p2')}</p>
+                <p>{text('consult.thanks.p3', 'consult.thanks.p3')}</p>
+                <p>{text('consult.thanks.p4', 'consult.thanks.p4')}</p>
+                <p className="mt-6">{text('consult.thanks.yours', 'consult.thanks.yours')}</p>
                 <p className="text-bronze/60">Altera Terra</p>
               </div>
             </div>
@@ -188,7 +207,7 @@ export default function RequestConsultation() {
                   htmlFor={nameId}
                   className="block font-body text-xs tracking-[0.3em] uppercase text-white/80 mb-3"
                 >
-                  {t('consult.name')}
+                  {text('consult.fields.name', 'consult.name')}
                 </label>
                 <input
                   id={nameId}
@@ -217,7 +236,7 @@ export default function RequestConsultation() {
                   htmlFor={emailId}
                   className="block font-body text-xs tracking-[0.3em] uppercase text-white/80 mb-3"
                 >
-                  {t('consult.email')}
+                  {text('consult.fields.email', 'consult.email')}
                 </label>
                 <input
                   id={emailId}
@@ -246,7 +265,7 @@ export default function RequestConsultation() {
                   htmlFor={phoneId}
                   className="block font-body text-xs tracking-[0.3em] uppercase text-white/80 mb-3"
                 >
-                  {t('consult.phone')} <span className="text-white/65">{t('consult.phone.opt')}</span>
+                  {text('consult.fields.phone', 'consult.phone')} <span className="text-white/65">{text('consult.fields.phoneOpt', 'consult.phone.opt')}</span>
                 </label>
                 <input
                   id={phoneId}
@@ -264,7 +283,7 @@ export default function RequestConsultation() {
                   htmlFor={interestId}
                   className="block font-body text-xs tracking-[0.3em] uppercase text-white/80 mb-3"
                 >
-                  {t('consult.interest')}
+                  {text('consult.fields.interest', 'consult.interest')}
                 </label>
                 <Select
                   value={areaOfInterest}
@@ -282,36 +301,15 @@ export default function RequestConsultation() {
                     <SelectValue placeholder={t('consult.interest.select')} />
                   </SelectTrigger>
                   <SelectContent className="bg-deepblack border border-white/15 text-white/85 rounded-none">
-                    <SelectItem
-                      value="curated-journeys"
-                      className="font-body text-[15px] text-white/85 focus:bg-bronze-warm/20 focus:text-white data-[state=checked]:text-bronze-warm cursor-pointer"
-                    >
-                      {t('consult.interest.journeys')}
-                    </SelectItem>
-                    <SelectItem
-                      value="private-access"
-                      className="font-body text-[15px] text-white/85 focus:bg-bronze-warm/20 focus:text-white data-[state=checked]:text-bronze-warm cursor-pointer"
-                    >
-                      {t('consult.interest.access')}
-                    </SelectItem>
-                    <SelectItem
-                      value="cultural-immersion"
-                      className="font-body text-[15px] text-white/85 focus:bg-bronze-warm/20 focus:text-white data-[state=checked]:text-bronze-warm cursor-pointer"
-                    >
-                      {t('consult.interest.cultural')}
-                    </SelectItem>
-                    <SelectItem
-                      value="lifestyle-curation"
-                      className="font-body text-[15px] text-white/85 focus:bg-bronze-warm/20 focus:text-white data-[state=checked]:text-bronze-warm cursor-pointer"
-                    >
-                      {t('consult.interest.lifestyle')}
-                    </SelectItem>
-                    <SelectItem
-                      value="other"
-                      className="font-body text-[15px] text-white/85 focus:bg-bronze-warm/20 focus:text-white data-[state=checked]:text-bronze-warm cursor-pointer"
-                    >
-                      {t('consult.interest.other')}
-                    </SelectItem>
+                    {interests.map((it) => (
+                      <SelectItem
+                        key={it.value}
+                        value={it.value}
+                        className="font-body text-[15px] text-white/85 focus:bg-bronze-warm/20 focus:text-white data-[state=checked]:text-bronze-warm cursor-pointer"
+                      >
+                        {it.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {fieldErrors.areaOfInterest && (
@@ -327,7 +325,7 @@ export default function RequestConsultation() {
                   htmlFor={messageId}
                   className="block font-body text-xs tracking-[0.3em] uppercase text-white/80 mb-3"
                 >
-                  {t('consult.message')}
+                  {text('consult.fields.message', 'consult.message')}
                 </label>
                 <textarea
                   id={messageId}
@@ -356,7 +354,7 @@ export default function RequestConsultation() {
                   htmlFor={captchaId}
                   className="block font-body text-xs tracking-[0.3em] uppercase text-white/80 mb-3"
                 >
-                  {t('consult.captcha')}
+                  {text('consult.fields.captcha', 'consult.captcha')}
                 </label>
                 <p className="font-body text-[13px] text-white/60 mb-3">
                   {captchaQuestion}

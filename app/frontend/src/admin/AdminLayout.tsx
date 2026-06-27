@@ -6,6 +6,7 @@ const NAV_ITEMS: Array<{ to: string; label: string; end?: boolean }> = [
   { to: '/admin', label: 'Dashboard', end: true },
   { to: '/admin/articles', label: 'Articles' },
   { to: '/admin/media', label: 'Media' },
+  { to: '/admin/site', label: 'Site Content' },
   { to: '/admin/settings', label: 'Settings' },
 ];
 

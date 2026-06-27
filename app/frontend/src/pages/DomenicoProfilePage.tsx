@@ -2,11 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 
 export default function DomenicoProfilePage() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const { t } = useLanguage();
+  const { section } = useContent();
+
+  const profile = section('profiles')?.['domenico-morelli'];
+  const name = profile?.name || 'Domenico Morelli';
+  const role = profile?.role || t('domenico.role');
+  const image = profile?.image || '/assets/domenico-morelli.jpg';
+  const imageAlt = profile?.imageAlt || 'Domenico Morelli';
+  const objectPosition = profile?.objectPosition || 'center 20%';
+  const bio = profile?.bio ?? [
+    t('domenico.p1'),
+    t('domenico.p2'),
+    t('domenico.p3'),
+    t('domenico.p4'),
+    t('domenico.p5'),
+    t('domenico.p6'),
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,10 +59,10 @@ export default function DomenicoProfilePage() {
               <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden">
                 <div className="absolute inset-0 rounded-full border border-white/[0.06] z-10" />
                 <img
-                  src="/assets/domenico-morelli.jpg"
-                  alt="Domenico Morelli"
+                  src={image}
+                  alt={imageAlt}
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center 20%' }}
+                  style={{ objectPosition }}
                 />
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-deepblack/40 via-transparent to-transparent" />
               </div>
@@ -57,34 +74,26 @@ export default function DomenicoProfilePage() {
               </span>
 
               <h1 className="font-display text-3xl md:text-4xl font-light text-white/90 leading-relaxed">
-                Domenico Morelli
+                {name}
               </h1>
 
               <p className="mt-3 font-body text-[12px] tracking-[0.25em] uppercase text-bronze/75">
-                {t('domenico.role')}
+                {role}
               </p>
 
               <div className="mt-10 mx-auto h-px w-10 bg-gradient-to-r from-bronze/30 to-transparent" />
 
               <div className="mt-10 space-y-6">
-                <p className="font-body text-[13px] leading-[2.2] text-white/70">
-                  {t('domenico.p1')}
-                </p>
-                <p className="font-body text-[13px] leading-[2.2] text-white/70">
-                  {t('domenico.p2')}
-                </p>
-                <p className="font-body text-[13px] leading-[2.2] text-white/70">
-                  {t('domenico.p3')}
-                </p>
-                <p className="font-body text-[13px] leading-[2.2] text-white/70">
-                  {t('domenico.p4')}
-                </p>
-                <p className="font-body text-[13px] leading-[2.2] text-white/70">
-                  {t('domenico.p5')}
-                </p>
-                <p className="font-body text-[13px] leading-[2.2] text-white/70 italic">
-                  {t('domenico.p6')}
-                </p>
+                {bio.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={`font-body text-[13px] leading-[2.2] text-white/70${
+                      i === bio.length - 1 ? ' italic' : ''
+                    }`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
 
               <div className="mt-14">

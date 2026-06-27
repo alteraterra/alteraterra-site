@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 import { useReveal } from '@/hooks/useReveal';
 
 const serviceImages = [
@@ -18,13 +19,19 @@ const serviceKeys = [
   { title: 'house.s5.title', desc: 'house.s5.desc' },
 ];
 
+interface ResolvedService {
+  title: string;
+  desc: string;
+  image: string;
+  imageAlt: string;
+}
+
 function ServiceCard({
-  id, titleKey, descKey, image, index,
+  id, title, desc, image, imageAlt, index,
 }: {
-  id: string; titleKey: string; descKey: string; image: string; index: number;
+  id: string; title: string; desc: string; image: string; imageAlt: string; index: number;
 }) {
   const { ref, visible } = useReveal({ threshold: 0.15 });
-  const { t } = useLanguage();
 
   const isEven = index % 2 === 0;
 
@@ -39,7 +46,7 @@ function ServiceCard({
         <div className="aspect-[4/5] overflow-hidden">
           <img
             src={image}
-            alt={t(titleKey)}
+            alt={imageAlt}
             loading="lazy"
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
@@ -53,7 +60,7 @@ function ServiceCard({
         </span>
         <div className="relative inline-block">
           <h3 className="font-display text-2xl font-normal text-charcoal sm:text-3xl md:text-4xl leading-tight">
-            {t(titleKey)}
+            {title}
           </h3>
           {/* Hover hairline — bronze line grows from the left under the title */}
           <span
@@ -63,7 +70,7 @@ function ServiceCard({
         </div>
         <div className="mt-5 h-px w-10 bg-gradient-to-r from-bronze-warm/70 to-transparent" />
         <p className="mt-6 font-body text-[15px] leading-[1.85] text-charcoal/75 max-w-md">
-          {t(descKey)}
+          {desc}
         </p>
       </div>
     </div>
@@ -75,19 +82,18 @@ function ServiceCard({
  * Sticks to the viewport as the service blocks scroll past on the left.
  * Active index is driven by IntersectionObserver on the service blocks.
  */
-function ServiceRail({ activeIndex }: { activeIndex: number }) {
-  const { t } = useLanguage();
+function ServiceRail({ activeIndex, label, services }: { activeIndex: number; label: string; services: ResolvedService[] }) {
   return (
     <aside className="hidden lg:block lg:col-span-3">
       <div className="sticky top-28 self-start flex flex-col gap-1">
         <span className="font-body text-[10px] tracking-[0.5em] uppercase text-bronze-warm mb-6">
-          {t('house.label')}
+          {label}
         </span>
-        {serviceKeys.map((sk, i) => {
+        {services.map((svc, i) => {
           const active = i === activeIndex;
           return (
             <a
-              key={sk.title}
+              key={i}
               href={`#house-${i}`}
               className={`group relative py-3 pl-7 font-body text-[12px] tracking-[0.25em] uppercase transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 active ? 'text-charcoal' : 'text-charcoal/55 hover:text-charcoal/85'
@@ -99,7 +105,7 @@ function ServiceRail({ activeIndex }: { activeIndex: number }) {
                 }`}
               />
               <span className="mr-2 text-charcoal/40 nums-tabular">{String(i + 1).padStart(2, '0')}</span>
-              {t(sk.title)}
+              {svc.title}
             </a>
           );
         })}
@@ -111,6 +117,28 @@ function ServiceRail({ activeIndex }: { activeIndex: number }) {
 export default function TheHouse() {
   const { ref: headerRef, visible: headerVisible } = useReveal({ threshold: 0.3 });
   const { t } = useLanguage();
+  const { text, img, section } = useContent();
+
+  // Resolve the service list: prefer the CMS `house.services` blob, otherwise
+  // fall back to today's hardcoded data (i18n copy + literal image srcs).
+  // Never render an empty section — fall back whenever the blob list is absent/empty.
+  const cmsServices = section('house')?.services;
+  const services: ResolvedService[] = (cmsServices && cmsServices.length > 0)
+    ? cmsServices.map((svc, i) => {
+        const fallbackTitle = serviceKeys[i] ? t(serviceKeys[i].title) : '';
+        return {
+          title: svc.title ?? fallbackTitle,
+          desc: svc.desc ?? (serviceKeys[i] ? t(serviceKeys[i].desc) : ''),
+          image: svc.image ?? (serviceImages[i] ?? ''),
+          imageAlt: svc.imageAlt ?? svc.title ?? fallbackTitle,
+        };
+      })
+    : serviceKeys.map((sk, i) => ({
+        title: text(`house.services.${i}.title`, sk.title),
+        desc: text(`house.services.${i}.desc`, sk.desc),
+        image: img(`house.services.${i}.image`, serviceImages[i]),
+        imageAlt: text(`house.services.${i}.imageAlt`, sk.title),
+      }));
 
   // Active service detection
   const [activeIndex, setActiveIndex] = useState(0);
@@ -131,7 +159,7 @@ export default function TheHouse() {
     );
     blocksRef.current.forEach((el) => el && obs.observe(el));
     return () => obs.disconnect();
-  }, []);
+  }, [services.length]);
 
   return (
     <section id="the-house" className="bg-chalk paper-noise py-24 md:py-32">
@@ -141,33 +169,34 @@ export default function TheHouse() {
           className={`mb-20 md:mb-28 text-center reveal-up ${headerVisible ? 'revealed' : ''}`}
         >
           <span className="font-body text-[11px] tracking-[0.5em] uppercase text-bronze-warm block mb-5">
-            {t('house.label')}
+            {text('house.label', 'house.label')}
           </span>
           <h2 className="font-display text-3xl font-normal text-charcoal sm:text-4xl md:text-5xl lg:text-[3rem] leading-tight tracking-[-0.01em] px-2">
-            {t('house.title')}
+            {text('house.title', 'house.title')}
           </h2>
           <p className="mt-6 font-body text-[15px] sm:text-base leading-[1.85] text-charcoal/75 max-w-lg mx-auto">
-            {t('house.subtitle')}
+            {text('house.subtitle', 'house.subtitle')}
           </p>
         </header>
 
         <div className="lg:grid lg:grid-cols-12 lg:gap-10">
           {/* Content scrolls on the left; the rail sticks on the right (desktop) */}
           <div className="lg:col-span-9 space-y-24 md:space-y-32">
-            {serviceKeys.map((sk, index) => (
-              <div key={sk.title} ref={(el) => { blocksRef.current[index] = el; }}>
+            {services.map((svc, index) => (
+              <div key={index} ref={(el) => { blocksRef.current[index] = el; }}>
                 <ServiceCard
                   id={`house-${index}`}
-                  titleKey={sk.title}
-                  descKey={sk.desc}
-                  image={serviceImages[index]}
+                  title={svc.title}
+                  desc={svc.desc}
+                  image={svc.image}
+                  imageAlt={svc.imageAlt}
                   index={index}
                 />
               </div>
             ))}
           </div>
 
-          <ServiceRail activeIndex={activeIndex} />
+          <ServiceRail activeIndex={activeIndex} label={text('house.label', 'house.label')} services={services} />
         </div>
       </div>
     </section>

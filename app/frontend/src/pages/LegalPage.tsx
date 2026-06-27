@@ -1,12 +1,31 @@
 import Layout from '@/components/Layout';
 import Hairline from '@/components/Hairline';
+import { useContent } from '@/content/SiteContentContext';
 
 // ponytail: bumped manually on each material change
 const LAST_REVIEWED = 'May 2026';
 
 export default function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
-  const title = kind === 'privacy' ? 'Privacy Notice' : 'Terms of Engagement';
-  const eyebrow = kind === 'privacy' ? 'Confidentiality' : 'Conditions';
+  const { section } = useContent();
+
+  const legal = section('legal');
+  const data = legal?.[kind];
+
+  const title =
+    data?.title || (kind === 'privacy' ? 'Privacy Notice' : 'Terms of Engagement');
+  const eyebrow =
+    data?.eyebrow || (kind === 'privacy' ? 'Confidentiality' : 'Conditions');
+  const lastReviewed = legal?.lastReviewed || LAST_REVIEWED;
+
+  const intro =
+    legal?.intro ||
+    'Altera Terra operates as a private collective. Membership is by invitation or introduction, and the relationships we hold are governed by discretion as much as by service. This page exists as the formal record of how we treat information shared with us and the terms under which we engage.';
+
+  const privacyEmail = data?.email || 'privacy@alteraterra.vip';
+  const legalEmail = data?.email || 'legal@alteraterra.vip';
+
+  const bodyParas =
+    data?.body && data.body.length > 0 ? data.body : undefined;
 
   return (
     <Layout>
@@ -21,13 +40,10 @@ export default function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
           <Hairline width="w-12" className="mb-12" />
 
           <div className="font-body text-[15px] leading-[1.85] text-charcoal/80 space-y-6">
-            <p>
-              Altera Terra operates as a private collective. Membership is by invitation
-              or introduction, and the relationships we hold are governed by discretion as
-              much as by service. This page exists as the formal record of how we treat
-              information shared with us and the terms under which we engage.
-            </p>
-            {kind === 'privacy' ? (
+            <p>{intro}</p>
+            {bodyParas ? (
+              bodyParas.map((para, i) => <p key={i}>{para}</p>)
+            ) : kind === 'privacy' ? (
               <>
                 <p>
                   Personal information you share — whether through enquiry, consultation,
@@ -40,8 +56,8 @@ export default function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
                   We retain only what is necessary, for only as long as our relationship
                   requires it. To request access, correction, or deletion of your records,
                   please write to{' '}
-                  <a href="mailto:privacy@alteraterra.vip" className="text-bronze-warm hover:text-bronze underline-offset-4 hover:underline transition-colors duration-700">
-                    privacy@alteraterra.vip
+                  <a href={`mailto:${privacyEmail}`} className="text-bronze-warm hover:text-bronze underline-offset-4 hover:underline transition-colors duration-700">
+                    {privacyEmail}
                   </a>.
                 </p>
               </>
@@ -57,14 +73,14 @@ export default function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
                   These pages, and any content within, are © Altera Terra. Distribution
                   without permission is not permitted. For any matter requiring formal
                   attention, write to{' '}
-                  <a href="mailto:legal@alteraterra.vip" className="text-bronze-warm hover:text-bronze underline-offset-4 hover:underline transition-colors duration-700">
-                    legal@alteraterra.vip
+                  <a href={`mailto:${legalEmail}`} className="text-bronze-warm hover:text-bronze underline-offset-4 hover:underline transition-colors duration-700">
+                    {legalEmail}
                   </a>.
                 </p>
               </>
             )}
             <p className="text-charcoal/60 italic pt-4">
-              Last reviewed {LAST_REVIEWED}.
+              Last reviewed {lastReviewed}.
             </p>
           </div>
         </div>

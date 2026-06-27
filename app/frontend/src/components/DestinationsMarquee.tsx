@@ -4,6 +4,8 @@
  *
  * Items are duplicated so the loop is seamless. Speed scales by item count.
  */
+import { useContent } from '@/content/SiteContentContext';
+
 // Ordered by region: Italy → France → Greece → Iberia → Africa → UK → USA → Asia.
 const DESTINATIONS = [
   // Italy
@@ -28,12 +30,19 @@ const DESTINATIONS = [
 ];
 
 export default function DestinationsMarquee() {
+  const { section, text } = useContent();
+
+  // CMS-managed destinations, falling back to the hardcoded list when absent/empty.
+  const cmsDestinations = section('marquee')?.destinations;
+  const destinations =
+    cmsDestinations && cmsDestinations.length > 0 ? cmsDestinations : DESTINATIONS;
+
   // Repeat twice for a seamless loop (translate-X(-50%) lands at the start of the second copy)
-  const items = [...DESTINATIONS, ...DESTINATIONS];
+  const items = [...destinations, ...destinations];
 
   return (
     <section
-      aria-label="Destinations"
+      aria-label={text('marquee.ariaLabel', 'Destinations')}
       className="marquee-pause relative bg-deepblack border-y border-white/[0.04] overflow-hidden py-8 md:py-10"
     >
       {/* Edge masks — fade the marquee at left/right edges so items appear & vanish softly */}

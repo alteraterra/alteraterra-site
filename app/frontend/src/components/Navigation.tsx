@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useLanguage } from '@/i18n/LanguageContext';
+import { useContent } from '@/content/SiteContentContext';
 
 const navKeys = [
   { key: 'nav.home', path: '/' },
@@ -19,9 +19,18 @@ const LIGHT_ROUTES = new Set<string>(['/prelude', '/the-house', '/privacy', '/te
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const { t } = useLanguage();
+  const { text, section } = useContent();
 
   const isLight = LIGHT_ROUTES.has(location.pathname);
+
+  // nav.items labels from the CMS, matched by path (to) or key; only the label
+  // is sourced from the blob. Routing (to/path), LIGHT_ROUTES and the
+  // sliding-underline logic stay static off `navKeys`.
+  const cmsNavItems = section('nav')?.items;
+  const navLabel = (item: { key: string; path: string }): string => {
+    const match = cmsNavItems?.find((n) => n?.to === item.path || n?.key === item.key);
+    return (match?.label || '').trim() || text(item.key, item.key);
+  };
 
   // Sliding underline — one shared DOM element that glides between active links
   const navRef = useRef<HTMLDivElement>(null);
@@ -127,7 +136,7 @@ export default function Navigation() {
                     active ? 'text-bronze-warm' : inactiveColor
                   }`}
                 >
-                  {t(item.key)}
+                  {navLabel(item)}
                 </Link>
               );
             })}
@@ -224,7 +233,7 @@ export default function Navigation() {
               }`}
               style={{ transitionDelay: menuOpen ? `${i * 90}ms` : '0ms' }}
             >
-              {t(item.key)}
+              {navLabel(item)}
             </Link>
           ))}
         </div>
