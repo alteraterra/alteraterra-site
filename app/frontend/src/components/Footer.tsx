@@ -54,12 +54,12 @@ export default function Footer() {
           <p className="font-body text-[11px] tracking-[0.25em] uppercase text-white/70">
             {t('footer.curatedby')}{' '}
             <a
-              href="https://littleemperors.com"
+              href="https://foratravel.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-bronze/70 hover:text-bronze transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             >
-              Little Emperors
+              Fora Travel
             </a>
             .
           </p>
