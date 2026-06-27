@@ -6,8 +6,8 @@ const navKeys = [
   { key: 'nav.home', path: '/' },
   { key: 'nav.prelude', path: '/prelude' },
   { key: 'nav.lamaison', path: '/the-house' },
-  { key: 'nav.journal', path: '/journal' },
   { key: 'nav.team', path: '/meet-the-team' },
+  { key: 'nav.journal', path: '/journal' },
   { key: 'nav.enquire', path: '/enquire' },
 ];
 
