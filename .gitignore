@@ -1,0 +1,34 @@
+# OS
+.DS_Store
+
+# Node
+node_modules/
+*.log
+
+# Build
+dist/
+.vite/
+.vercel/
+.next/
+
+# Env (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+!.env.local.example
+
+# Python (backend)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Test
+coverage/

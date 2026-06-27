@@ -1,0 +1,42 @@
+{
+    "title": "enquiries",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer",
+            "description": "Primary key, auto-increment"
+        },
+        "full_name": {
+            "type": "string",
+            "description": "Full name of the enquirer"
+        },
+        "email": {
+            "type": "string",
+            "description": "Email address of the enquirer"
+        },
+        "phone": {
+            "type": "string",
+            "description": "Phone number (optional)"
+        },
+        "area_of_interest": {
+            "type": "string",
+            "description": "Area of interest selected"
+        },
+        "message": {
+            "type": "string",
+            "description": "The enquiry message"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of enquiry submission"
+        }
+    },
+    "required": [
+        "id",
+        "full_name",
+        "email",
+        "area_of_interest",
+        "message"
+    ]
+}

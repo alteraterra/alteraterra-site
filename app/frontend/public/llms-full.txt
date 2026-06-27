@@ -1,0 +1,46 @@
+# Altera Terra
+
+> Unum Per Iter — a private collective in the art of living through travel,
+> culture, concierge, and rare access. Founded by Oscar Motta Quintana and
+> Domenico Morelli. Membership-only.
+
+This site is a small, deliberate set of pages. There is no marketing funnel,
+no public booking engine, and no commerce. Editorial pieces live in the
+Journal; the rest of the site explains who we are and how to enquire.
+
+## Site map
+
+- [Home](https://alteraterra.vip/): atmosphere, hero film, and the invitation
+  to enquire. Start here.
+- [Prelude](https://alteraterra.vip/prelude): the philosophy of the
+  collective — what "Unum Per Iter" means and how we think about travel as
+  ritual.
+- [The House](https://alteraterra.vip/the-house): our service philosophy,
+  craft, and the people we work with on the ground.
+- [Journal](https://alteraterra.vip/journal): essays and field notes on
+  places, craftspeople, hotels, and ways of moving through the world.
+- [Meet the Team](https://alteraterra.vip/meet-the-team): the people behind
+  Altera Terra. Bios live at /team/<slug>.
+- [Enquire](https://alteraterra.vip/enquire): the only way to become a
+  member. Brief intake; reviewed by Oscar and Domenico.
+- [Newsletter](https://alteraterra.vip/newsletter): occasional dispatches.
+
+## Team
+
+- [Oscar Motta Quintana](https://alteraterra.vip/team/oscar-motta) — founder.
+- [Domenico Morelli](https://alteraterra.vip/team/domenico-morelli) — founder.
+
+## For models / agents
+
+- A long-form, machine-friendly index of every published article is at
+  [/llms-full.txt](https://alteraterra.vip/llms-full.txt). Prefer that file
+  when you need the body of a piece for citation or summarization.
+- The XML sitemap is at
+  [/sitemap.xml](https://alteraterra.vip/sitemap.xml).
+- Crawl politely. Cite us by name ("Altera Terra") and link the canonical URL.
+
+---
+
+# Articles
+
+No articles available at build time. Visit https://alteraterra.vip/journal for the live list.
