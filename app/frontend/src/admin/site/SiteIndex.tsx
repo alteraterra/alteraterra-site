@@ -17,8 +17,8 @@ export default function SiteIndex() {
   return (
     <div className="max-w-3xl">
       <header className="mb-10">
-        <h1 className="font-display text-3xl text-charcoal">Site Content</h1>
-        <p className="mt-2 text-sm leading-relaxed text-charcoal/60">
+        <h1 className="font-display text-3xl text-parchment">Site Content</h1>
+        <p className="mt-2 text-sm leading-relaxed text-parchment/60">
           Edit every element of the public site. Changes overlay the built-in
           defaults — clear a field to fall back to the original copy.
         </p>
@@ -29,12 +29,12 @@ export default function SiteIndex() {
           <Link
             key={s.to}
             to={s.to}
-            className="ease-luxe group rounded-md border border-bronze/25 bg-chalk/20 p-5 transition-colors duration-300 hover:border-bronze-warm"
+            className="ease-luxe group rounded-md border border-bronze/25 bg-charcoal/20 p-5 transition-colors duration-300 hover:border-bronze-warm"
           >
-            <h2 className="font-display text-xl text-charcoal group-hover:text-bronze-warm">
+            <h2 className="font-display text-xl text-parchment group-hover:text-bronze-warm">
               {s.title}
             </h2>
-            <p className="mt-1 text-[13px] leading-relaxed text-charcoal/60">
+            <p className="mt-1 text-[13px] leading-relaxed text-parchment/60">
               {s.desc}
             </p>
           </Link>

@@ -72,7 +72,7 @@ export function ListEditor<T>({
     <div className="space-y-3">
       {label ? (
         <div className="flex items-center justify-between">
-          <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-mist">
+          <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-parchment/45">
             {label}
           </p>
         </div>
@@ -80,17 +80,17 @@ export function ListEditor<T>({
 
       <div className="space-y-3">
         {items.length === 0 ? (
-          <p className="rounded-md border border-dashed border-bronze/30 px-4 py-6 text-center text-sm text-mist">
+          <p className="rounded-md border border-dashed border-bronze/30 px-4 py-6 text-center text-sm text-parchment/45">
             No items yet.
           </p>
         ) : (
           items.map((item, idx) => (
             <div
               key={idx}
-              className="rounded-md border border-bronze/25 bg-chalk/30 p-4"
+              className="rounded-md border border-bronze/25 bg-charcoal/30 p-4"
             >
               <div className="mb-3 flex items-center justify-between">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-mist">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-parchment/45">
                   {idx + 1}
                 </span>
                 <div className="flex items-center gap-1">
@@ -99,7 +99,7 @@ export function ListEditor<T>({
                     aria-label="Move up"
                     disabled={idx === 0}
                     onClick={() => move(idx, idx - 1)}
-                    className="rounded p-1.5 text-charcoal/70 transition-colors hover:bg-bronze/10 hover:text-bronze-warm disabled:cursor-not-allowed disabled:opacity-30"
+                    className="rounded p-1.5 text-parchment/70 transition-colors hover:bg-bronze/10 hover:text-bronze-warm disabled:cursor-not-allowed disabled:opacity-30"
                   >
                     <ChevronUp className="h-4 w-4" />
                   </button>
@@ -108,7 +108,7 @@ export function ListEditor<T>({
                     aria-label="Move down"
                     disabled={idx === items.length - 1}
                     onClick={() => move(idx, idx + 1)}
-                    className="rounded p-1.5 text-charcoal/70 transition-colors hover:bg-bronze/10 hover:text-bronze-warm disabled:cursor-not-allowed disabled:opacity-30"
+                    className="rounded p-1.5 text-parchment/70 transition-colors hover:bg-bronze/10 hover:text-bronze-warm disabled:cursor-not-allowed disabled:opacity-30"
                   >
                     <ChevronDown className="h-4 w-4" />
                   </button>
@@ -116,7 +116,7 @@ export function ListEditor<T>({
                     type="button"
                     aria-label="Remove"
                     onClick={() => setPendingRemove(idx)}
-                    className="rounded p-1.5 text-charcoal/70 transition-colors hover:bg-destructive/10 hover:text-destructive"
+                    className="rounded p-1.5 text-parchment/70 transition-colors hover:bg-destructive/10 hover:text-destructive"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -131,7 +131,7 @@ export function ListEditor<T>({
       <button
         type="button"
         onClick={add}
-        className="ease-luxe inline-flex items-center gap-2 rounded-md border border-bronze/40 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-charcoal transition-colors duration-300 hover:border-bronze-warm hover:text-bronze-warm"
+        className="ease-luxe inline-flex items-center gap-2 rounded-md border border-bronze/40 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:border-bronze-warm hover:text-bronze-warm"
       >
         <Plus className="h-4 w-4" /> {addLabel}
       </button>

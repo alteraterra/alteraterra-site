@@ -45,7 +45,7 @@ export default function ProfilesEditor() {
                   value={para}
                   rows={3}
                   onChange={(e) => set(e.target.value)}
-                  className="ease-luxe w-full resize-y rounded-md border border-bronze/30 bg-parchment/60 px-3 py-2 text-[15px] leading-relaxed text-charcoal outline-none transition-colors duration-300 focus:border-bronze-warm"
+                  className="ease-luxe w-full resize-y rounded-md border border-bronze/30 bg-deepblack/40 px-3 py-2 text-[15px] leading-relaxed text-parchment outline-none transition-colors duration-300 focus:border-bronze-warm"
                 />
               )}
             />
@@ -61,7 +61,7 @@ export default function ProfilesEditor() {
           <button
             type="button"
             onClick={addProfile}
-            className="ease-luxe mb-6 rounded-md border border-bronze/40 px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-charcoal transition-colors duration-300 hover:border-bronze-warm hover:text-bronze-warm"
+            className="ease-luxe mb-6 rounded-md border border-bronze/40 px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:border-bronze-warm hover:text-bronze-warm"
           >
             Add
           </button>

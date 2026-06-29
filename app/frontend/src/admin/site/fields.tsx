@@ -22,9 +22,9 @@ export function EditorShell({
     <div className="max-w-3xl pb-24">
       <header className="mb-10 flex items-start justify-between gap-6">
         <div>
-          <h1 className="font-display text-3xl text-charcoal">{title}</h1>
+          <h1 className="font-display text-3xl text-parchment">{title}</h1>
           {description ? (
-            <p className="mt-2 text-sm leading-relaxed text-charcoal/60">
+            <p className="mt-2 text-sm leading-relaxed text-parchment/60">
               {description}
             </p>
           ) : null}
@@ -33,14 +33,14 @@ export function EditorShell({
           type="button"
           onClick={() => void save()}
           disabled={!dirty || saving}
-          className="ease-luxe shrink-0 rounded-md border border-bronze/50 px-6 py-3 text-[11px] uppercase tracking-[0.3em] text-charcoal transition-colors duration-300 hover:border-bronze-warm hover:bg-bronze-warm hover:text-deepblack disabled:cursor-not-allowed disabled:opacity-30"
+          className="ease-luxe shrink-0 rounded-md border border-bronze/50 px-6 py-3 text-[11px] uppercase tracking-[0.3em] text-parchment transition-colors duration-300 hover:border-bronze-warm hover:bg-bronze-warm hover:text-deepblack disabled:cursor-not-allowed disabled:opacity-30"
         >
           {saving ? 'Saving…' : dirty ? 'Save' : 'Saved'}
         </button>
       </header>
 
       {loading ? (
-        <p className="text-sm text-mist">Loading…</p>
+        <p className="text-sm text-parchment/45">Loading…</p>
       ) : (
         <div className="space-y-8">{children}</div>
       )}
@@ -50,9 +50,9 @@ export function EditorShell({
 
 export function Group({ title, children }: { title?: string; children: ReactNode }) {
   return (
-    <section className="space-y-4 rounded-md border border-bronze/20 bg-chalk/20 p-6">
+    <section className="space-y-4 rounded-md border border-bronze/20 bg-charcoal/20 p-6">
       {title ? (
-        <h2 className="font-display text-lg text-charcoal/90">{title}</h2>
+        <h2 className="font-display text-lg text-parchment/90">{title}</h2>
       ) : null}
       {children}
     </section>
@@ -60,9 +60,9 @@ export function Group({ title, children }: { title?: string; children: ReactNode
 }
 
 const labelCls =
-  'block text-[10px] font-medium uppercase tracking-[0.3em] text-mist mb-2';
+  'block text-[10px] font-medium uppercase tracking-[0.3em] text-parchment/45 mb-2';
 const inputCls =
-  'ease-luxe w-full rounded-md border border-bronze/30 bg-parchment/60 px-3 py-2 text-[15px] text-charcoal outline-none transition-colors duration-300 focus:border-bronze-warm';
+  'ease-luxe w-full rounded-md border border-bronze/30 bg-deepblack/40 px-3 py-2 text-[15px] text-parchment outline-none transition-colors duration-300 focus:border-bronze-warm';
 
 export function TextField({
   label,
@@ -93,10 +93,10 @@ export function TextField({
         className={`${inputCls} ${readOnly ? 'opacity-60' : ''}`}
       />
       <div className="mt-1 flex justify-between">
-        {hint ? <span className="text-[11px] text-mist">{hint}</span> : <span />}
+        {hint ? <span className="text-[11px] text-parchment/45">{hint}</span> : <span />}
         {max ? (
           <span
-            className={`text-[11px] ${value.length > max ? 'text-destructive' : 'text-mist'}`}
+            className={`text-[11px] ${value.length > max ? 'text-destructive' : 'text-parchment/45'}`}
           >
             {value.length}/{max}
           </span>
@@ -153,10 +153,10 @@ export function TextArea({
         className={`${inputCls} resize-y leading-relaxed`}
       />
       <div className="mt-1 flex justify-between">
-        {hint ? <span className="text-[11px] text-mist">{hint}</span> : <span />}
+        {hint ? <span className="text-[11px] text-parchment/45">{hint}</span> : <span />}
         {max ? (
           <span
-            className={`text-[11px] ${value.length > max ? 'text-destructive' : 'text-mist'}`}
+            className={`text-[11px] ${value.length > max ? 'text-destructive' : 'text-parchment/45'}`}
           >
             {value.length}/{max}
           </span>

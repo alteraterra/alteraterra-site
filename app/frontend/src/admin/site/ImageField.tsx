@@ -24,12 +24,12 @@ export function ImageField({ value, onChange, label }: ImageFieldProps) {
   return (
     <div className="space-y-2">
       {label ? (
-        <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-mist">
+        <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-parchment/45">
           {label}
         </p>
       ) : null}
       <div className="flex items-start gap-4">
-        <div className="flex h-24 w-32 items-center justify-center overflow-hidden rounded-md border border-bronze/30 bg-chalk/40">
+        <div className="flex h-24 w-32 items-center justify-center overflow-hidden rounded-md border border-bronze/30 bg-charcoal/40">
           {hasImage ? (
             <img
               src={publicMediaUrl(value as string)}
@@ -44,7 +44,7 @@ export function ImageField({ value, onChange, label }: ImageFieldProps) {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="ease-luxe rounded-md border border-bronze/40 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-charcoal transition-colors duration-300 hover:border-bronze-warm hover:text-bronze-warm"
+            className="ease-luxe rounded-md border border-bronze/40 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-parchment transition-colors duration-300 hover:border-bronze-warm hover:text-bronze-warm"
           >
             {hasImage ? 'Change' : 'Add image'}
           </button>
@@ -52,7 +52,7 @@ export function ImageField({ value, onChange, label }: ImageFieldProps) {
             <button
               type="button"
               onClick={() => onChange('')}
-              className="ease-luxe text-[11px] uppercase tracking-[0.25em] text-mist transition-colors duration-300 hover:text-destructive"
+              className="ease-luxe text-[11px] uppercase tracking-[0.25em] text-parchment/45 transition-colors duration-300 hover:text-destructive"
             >
               Remove
             </button>

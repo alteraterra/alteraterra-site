@@ -28,7 +28,7 @@ function SectionFields({
             value={para}
             rows={4}
             onChange={(e) => set(e.target.value)}
-            className="ease-luxe w-full resize-y rounded-md border border-bronze/30 bg-parchment/60 px-3 py-2 text-[15px] leading-relaxed text-charcoal outline-none transition-colors duration-300 focus:border-bronze-warm"
+            className="ease-luxe w-full resize-y rounded-md border border-bronze/30 bg-deepblack/40 px-3 py-2 text-[15px] leading-relaxed text-parchment outline-none transition-colors duration-300 focus:border-bronze-warm"
           />
         )}
       />
