@@ -8,6 +8,7 @@ import { LanguageProvider } from '@/i18n/LanguageContext';
 import { SiteContentProvider } from '@/content/SiteContentContext';
 import { getBootedContent } from '@/content/loadSiteContent';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import SiteHead from '@/components/SiteHead';
 import Index from './pages/Index';
 
 const PreludePage = lazy(() => import('./pages/PreludePage'));
@@ -62,6 +63,7 @@ const App = () => (
       {/* MODULE_PROVIDERS_END */}
       <LanguageProvider>
         <SiteContentProvider initial={INITIAL}>
+        <SiteHead />
         <TooltipProvider>
           <Toaster />
           <BrowserRouter>

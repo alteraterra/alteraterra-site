@@ -344,8 +344,8 @@ const content = {
     title: 'Altera Terra | Unum Per Iter — Private Collective in the Art of Living',
     description: 'Altera Terra | Unum Per Iter — A private collective in the art of living through travel, culture, concierge and rare access.',
     canonical: 'https://alteraterra.vip/',
-    ogImage: '',
-    jsonLdLogo: '/assets/logo.png',
+    ogImage: 'https://alteraterra.vip/hero.jpg',
+    jsonLdLogo: 'https://alteraterra.vip/assets/logo.png',
     perPage: {},
   },
 

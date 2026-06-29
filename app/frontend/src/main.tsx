@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
 import './index.css';
 import { loadRuntimeConfig } from './lib/config.ts';
 import { loadSiteContent, setBootedContent } from './content/loadSiteContent.ts';
@@ -23,6 +22,11 @@ async function initializeApp() {
   // getBootedContent() and mounts the provider in the right place.
   // loadSiteContent() never throws and self-degrades to {} on timeout/error.
   setBootedContent(await loadSiteContent());
+
+  // Import App AFTER the blob is stashed. App.tsx reads getBootedContent() in a
+  // top-level const, so a static import would evaluate it before the blob lands
+  // (empty content → every component silently falls back to i18n).
+  const { default: App } = await import('./App.tsx');
 
   // Render the app
   createRoot(document.getElementById('root')!).render(<App />);
