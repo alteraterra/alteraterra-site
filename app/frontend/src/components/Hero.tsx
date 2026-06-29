@@ -36,7 +36,7 @@ export default function Hero() {
           {text('hero.brand', 'hero.brand')}
         </h1>
 
-        <p className="hero-entry hero-entry--motto mt-4 font-display text-lg tracking-[0.15em] italic font-normal sm:text-xl sm:tracking-[0.25em] md:text-2xl md:tracking-[0.35em] text-white text-center max-w-[95vw]">
+        <p className="hero-entry hero-entry--motto mt-4 font-display text-lg tracking-[0.15em] italic font-normal sm:text-xl sm:tracking-[0.25em] md:text-2xl md:tracking-[0.35em] text-[#B86A2E] text-center max-w-[95vw]">
           {text('hero.motto', 'hero.motto')}
         </p>
 

@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import { useLenis } from '@/hooks/useLenis';
-import DestinationsMarquee from './DestinationsMarquee';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
@@ -27,7 +26,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main id="main" key={pathname} className="flex-1 pt-[68px] route-fade">
         {children}
       </main>
-      <DestinationsMarquee />
       <Footer />
     </div>
   );
