@@ -15,7 +15,7 @@ export default function Hero() {
   const { text, img, get } = useContent();
 
   return (
-    <section className="luxe-cursor relative h-[calc(100dvh-68px)] w-full overflow-hidden bg-deepblack">
+    <section className="luxe-cursor relative h-[calc(100dvh-68px)] w-full overflow-hidden bg-black">
       <div className="absolute inset-0">
         <img
           src={img('hero.image', HERO_IMAGE)}
@@ -27,6 +27,9 @@ export default function Hero() {
         <div className="absolute inset-0 bg-deepblack/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-deepblack/30 via-transparent to-deepblack/70" />
         <div className="absolute inset-0 bg-gradient-to-r from-deepblack/20 via-transparent to-deepblack/20" />
+        {/* Readability scrim — soft dark vignette behind the centered copy so the
+            bronze motto keeps WCAG contrast over any frame of the photo. */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_72%_58%_at_50%_44%,rgba(8,6,5,0.78)_0%,rgba(8,6,5,0.42)_40%,transparent_72%)]" />
         {/* Cursor-follow bronze spotlight — sits above overlays but below text */}
         <Spotlight intensity={0.18} size={620} />
       </div>
@@ -36,7 +39,7 @@ export default function Hero() {
           {text('hero.brand', 'hero.brand')}
         </h1>
 
-        <p className="hero-entry hero-entry--motto mt-4 font-display text-lg tracking-[0.15em] italic font-normal sm:text-xl sm:tracking-[0.25em] md:text-2xl md:tracking-[0.35em] text-[#B86A2E] text-center max-w-[95vw]">
+        <p className="hero-entry hero-entry--motto mt-4 font-display text-2xl tracking-[0.18em] italic font-normal sm:tracking-[0.25em] md:text-[1.75rem] md:tracking-[0.35em] text-[#B86A2E] text-center max-w-[95vw] [text-shadow:0_1px_2px_rgba(0,0,0,0.55),0_2px_16px_rgba(0,0,0,0.6)]">
           {text('hero.motto', 'hero.motto')}
         </p>
 
