@@ -93,8 +93,8 @@ export default function Navigation() {
 
   // Light/dark color tokens for the bar
   const navBarClass = isLight
-    ? 'fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm border-b-[6px] border-[#B86A2E] py-5'
-    : 'fixed top-0 left-0 right-0 z-50 bg-deepblack/95 backdrop-blur-sm border-b-[6px] border-[#B86A2E] py-5';
+    ? 'fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm border-b-[4px] border-[#B86A2E] py-5'
+    : 'fixed top-0 left-0 right-0 z-50 bg-deepblack/95 backdrop-blur-sm border-b-[4px] border-[#B86A2E] py-5';
 
   const brandClass = isLight
     ? 'font-display text-sm tracking-[0.3em] sm:text-base sm:tracking-[0.4em] uppercase text-charcoal hover:text-deepblack transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
