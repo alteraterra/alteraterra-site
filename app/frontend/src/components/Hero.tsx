@@ -19,7 +19,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <img
           src={img('hero.image', HERO_IMAGE)}
-          alt={text('hero.imageAlt', 'Amalfi Coast at dawn — terraced villas above a glassy Mediterranean sea')}
+          alt={text('hero.imageAlt', 'Amalfi Coast at dawn, terraced villas above a glassy Mediterranean sea')}
           fetchPriority="high"
           decoding="async"
           className="hero-image absolute inset-0 h-full w-full object-cover"
@@ -27,13 +27,13 @@ export default function Hero() {
         <div className="absolute inset-0 bg-deepblack/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-deepblack/30 via-transparent to-deepblack/70" />
         <div className="absolute inset-0 bg-gradient-to-r from-deepblack/20 via-transparent to-deepblack/20" />
-        {/* Readability scrim — soft dark vignette behind the centered copy so the
+        {/* Readability scrim, soft dark vignette behind the centered copy so the
             bronze motto keeps WCAG contrast over any frame of the photo. */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_72%_58%_at_50%_44%,rgba(8,6,5,0.78)_0%,rgba(8,6,5,0.42)_40%,transparent_72%)]" />
-        {/* Top-edge scrim — removes the light haze band directly under the fixed
+        {/* Top-edge scrim, removes the light haze band directly under the fixed
             nav so the hero meets the bronze stroke cleanly. */}
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/90 via-black/45 to-transparent" />
-        {/* Cursor-follow bronze spotlight — sits above overlays but below text */}
+        {/* Cursor-follow bronze spotlight, sits above overlays but below text */}
         <Spotlight intensity={0.18} size={620} />
       </div>
 

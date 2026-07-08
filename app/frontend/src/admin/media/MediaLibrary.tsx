@@ -118,7 +118,7 @@ export default function MediaLibrary() {
             <div>
               <div className="font-display text-lg text-deepblack">Drop files to upload</div>
               <div className="text-xs text-mist">
-                Or click the button. PNG, JPG, WebP, SVG, PDF — anything storage will accept.
+                Or click the button. PNG, JPG, WebP, SVG, PDF, anything storage will accept.
               </div>
             </div>
           </div>

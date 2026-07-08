@@ -1,7 +1,7 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 
 /**
- * Magnetic hover — child element drifts slightly toward the cursor when nearby.
+ * Magnetic hover, child element drifts slightly toward the cursor when nearby.
  * Pure CSS transform, no React state. Disabled on touch + reduced-motion.
  *
  * Inspired by 21st.dev magnetic-button patterns; tuned conservatively for

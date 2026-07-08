@@ -44,7 +44,7 @@ export default function LegalEditor() {
   return (
     <EditorShell
       title="Legal"
-      description="Privacy & terms copy. These edits are legally significant — review carefully."
+      description="Privacy & terms copy. These edits are legally significant, review carefully."
       hook={hook}
     >
       <Group title="Shared">

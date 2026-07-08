@@ -1,5 +1,5 @@
 /**
- * Article translations — English only (no translations needed).
+ * Article translations, English only (no translations needed).
  * Kept as an empty export to avoid breaking imports.
  */
 

@@ -46,8 +46,8 @@ export default function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
             ) : kind === 'privacy' ? (
               <>
                 <p>
-                  Personal information you share — whether through enquiry, consultation,
-                  or membership — is held confidentially and used only for the purpose of
+                  Personal information you share, whether through enquiry, consultation,
+                  or membership, is held confidentially and used only for the purpose of
                   responding to and serving you. We do not sell data, and we do not share
                   it with third parties except where strictly required to deliver an
                   experience you have requested.

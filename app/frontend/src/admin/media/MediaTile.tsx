@@ -7,7 +7,7 @@ export interface MediaTileItem {
   path: string;
   /** Display filename (basename). */
   name: string;
-  /** Public URL — already resolved via publicMediaUrl(). */
+  /** Public URL, already resolved via publicMediaUrl(). */
   url: string;
   /** Size in bytes if known. */
   size?: number;

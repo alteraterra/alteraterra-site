@@ -92,7 +92,7 @@ function FaqView({ node, updateAttributes }: NodeViewProps) {
       <div className="space-y-4">
         {items.length === 0 && (
           <p className="font-body text-sm italic text-charcoal/50">
-            No questions yet — add one below.
+            No questions yet, add one below.
           </p>
         )}
         {items.map((item, i) => (
@@ -176,7 +176,7 @@ export default function TipTapEditor({
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        // Off-brand or unused — keep the editor disciplined.
+        // Off-brand or unused, keep the editor disciplined.
         codeBlock: false,
         horizontalRule: false,
         // Keep: bold, italic, strike, paragraph, heading, blockquote, bulletList,
@@ -211,7 +211,7 @@ export default function TipTapEditor({
     content: initialDoc,
     editorProps: {
       attributes: {
-        // The parchment reading surface — mirrors public ArticlePage type scale.
+        // The parchment reading surface, mirrors public ArticlePage type scale.
         class: [
           'tiptap-surface',
           'min-h-[420px] px-5 sm:px-8 py-8 sm:py-10',
@@ -225,7 +225,7 @@ export default function TipTapEditor({
           '[&_h3]:text-charcoal/90 [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:tracking-wide',
           // Paragraphs
           '[&_p]:my-4 [&_p]:max-w-2xl',
-          // Blockquote — bronze-warm hairline left edge
+          // Blockquote, bronze-warm hairline left edge
           '[&_blockquote]:border-l-2 [&_blockquote]:border-bronze-warm/70',
           '[&_blockquote]:pl-5 [&_blockquote]:my-8 [&_blockquote]:italic',
           '[&_blockquote]:font-display [&_blockquote]:text-lg [&_blockquote]:text-charcoal/80',
@@ -256,7 +256,7 @@ export default function TipTapEditor({
     if (internalUpdate.current) return;
     const incoming = blocksToTipTap(value);
     const current = editor.getJSON();
-    // Cheap structural diff — only reset if genuinely different.
+    // Cheap structural diff, only reset if genuinely different.
     if (JSON.stringify(incoming) !== JSON.stringify(current)) {
       editor.commands.setContent(incoming, { emitUpdate: false });
     }

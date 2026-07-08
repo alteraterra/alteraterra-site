@@ -67,7 +67,7 @@ export const Callout = Node.create({
 /* ──────────────────────────────────────────────────────────────────────────
  * FAQ node
  *   - block with attribute `items`: { question, answer }[]
- *   - atomic (no inline editing of children — the NodeView handles editing
+ *   - atomic (no inline editing of children, the NodeView handles editing
  *     by writing back to `items` via updateAttributes)
  * ────────────────────────────────────────────────────────────────────────── */
 export const Faq = Node.create({
@@ -118,7 +118,7 @@ export const Faq = Node.create({
  *
  * The editor's source of truth is the Block[] array.  These two functions
  * round-trip between Block[] and TipTap's JSONContent doc.  Keep them pure
- * — the migration script imports them directly.
+ *, the migration script imports them directly.
  * ────────────────────────────────────────────────────────────────────────── */
 
 /** Inline node → minimal HTML string (no external libs, server-safe). */
@@ -285,7 +285,7 @@ export function tipTapToBlocks(doc: JSONContent | null | undefined): Block[] {
         break;
       }
       default:
-        // Unknown block — ignore.
+        // Unknown block, ignore.
         break;
     }
   }
@@ -297,7 +297,7 @@ export function tipTapToBlocks(doc: JSONContent | null | undefined): Block[] {
  * Convert the Block[] schema back into a TipTap JSON document.
  * HTML inside paragraph/callout blocks is parsed conservatively into
  * text + simple marks (bold/italic/link).  We deliberately keep this
- * tolerant rather than perfect — round-tripping through the editor will
+ * tolerant rather than perfect, round-tripping through the editor will
  * normalise anything weird.
  */
 export function blocksToTipTap(blocks: Block[] | null | undefined): JSONContent {

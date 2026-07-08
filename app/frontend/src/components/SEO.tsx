@@ -25,9 +25,9 @@ import { Helmet } from "react-helmet-async";
 const SITE_URL = "https://alteraterra.vip";
 const SITE_NAME = "Altera Terra";
 const DEFAULT_TITLE =
-  "Altera Terra | Unum Per Iter — Private Collective in the Art of Living";
+  "Altera Terra | Unum Per Iter, Private Collective in the Art of Living";
 const DEFAULT_DESCRIPTION =
-  "Altera Terra | Unum Per Iter — A private collective in the art of living through travel, culture, concierge and rare access.";
+  "Altera Terra | Unum Per Iter, A private collective in the art of living through travel, culture, concierge and rare access.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/hero.jpg`;
 
 export interface SEOProps {

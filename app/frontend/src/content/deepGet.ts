@@ -1,5 +1,5 @@
 /**
- * deepGet — read a value from a nested object using a dot path.
+ * deepGet, read a value from a nested object using a dot path.
  *
  * Supports numeric indices into arrays, e.g.:
  *   deepGet(content, 'house.services.0.title')

@@ -13,7 +13,7 @@ export default function ConsultEditor() {
   return (
     <EditorShell
       title="Consultation"
-      description="The consultation form — headings, field labels, interest options, and the thank-you note."
+      description="The consultation form, headings, field labels, interest options, and the thank-you note."
       hook={hook}
     >
       <Group title="Headings">
@@ -43,7 +43,7 @@ export default function ConsultEditor() {
           newItem={() => ({ value: '', label: '' })}
           renderItem={(it, _idx, set) => (
             <div className="space-y-3">
-              <TextField label="Value (submitted to API — change with care)" value={it.value ?? ''} onChange={(v) => set({ ...it, value: v })} />
+              <TextField label="Value (submitted to API, change with care)" value={it.value ?? ''} onChange={(v) => set({ ...it, value: v })} />
               <TextField label="Label" value={it.label ?? ''} onChange={(v) => set({ ...it, label: v })} />
             </div>
           )}

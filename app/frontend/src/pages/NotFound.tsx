@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function NotFound() {
   return (
     <div className="luxe-cursor min-h-[100dvh] bg-deepblack flex flex-col items-center justify-center px-8 text-center">
-      {/* Compass rose — single SVG, slow rotation */}
+      {/* Compass rose, single SVG, slow rotation */}
       <div className="relative mb-12" aria-hidden>
         <svg
           width="120"
@@ -37,7 +37,7 @@ export default function NotFound() {
         Non omnia possumus omnes.
       </p>
       <p className="font-body text-[13px] tracking-wide text-white/65 max-w-md mb-12">
-        We cannot all do everything — and this page, it seems, is not yet among the things we do.
+        We cannot all do everything, and this page, it seems, is not yet among the things we do.
       </p>
 
       <Link

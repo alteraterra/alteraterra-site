@@ -78,7 +78,7 @@ export function convertBlocksToSections(blocks: Block[]): ArticleSection[] {
         });
         break;
       default:
-        // Unknown block type — skip silently rather than crash the page.
+        // Unknown block type, skip silently rather than crash the page.
         break;
     }
   }
@@ -119,7 +119,7 @@ export function useTranslatedArticles(): TranslatedArticle[] {
 
   useEffect(() => {
     if (!SUPABASE_CONFIGURED) {
-      // Already showing the TS fallback — nothing to fetch.
+      // Already showing the TS fallback, nothing to fetch.
       return;
     }
     let cancelled = false;
@@ -140,7 +140,7 @@ export function useTranslatedArticles(): TranslatedArticle[] {
         }
         const rows = (data || []) as BlogPost[];
         if (rows.length === 0) {
-          // Cutover window — table is empty, keep the TS fallback.
+          // Cutover window, table is empty, keep the TS fallback.
           return;
         }
         setArticles(rows.map(rowToArticle));

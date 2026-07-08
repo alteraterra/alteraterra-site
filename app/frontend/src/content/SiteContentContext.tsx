@@ -4,7 +4,7 @@ import { deepGet } from './deepGet';
 import type { SiteContent } from './schema';
 
 /**
- * SiteContentContext — exposes the editable site-content blob to the tree and
+ * SiteContentContext, exposes the editable site-content blob to the tree and
  * the resolver helpers the components use to read copy/images.
  *
  * RESOLUTION ORDER (the locked architecture):
@@ -13,7 +13,7 @@ import type { SiteContent } from './schema';
  *
  * The i18n dictionary stays as the permanent fallback. This provider MUST be
  * mounted INSIDE LanguageProvider because `text()` calls `t()` from
- * useLanguage() — see App.tsx where it sits immediately inside <LanguageProvider>.
+ * useLanguage(), see App.tsx where it sits immediately inside <LanguageProvider>.
  */
 
 interface SiteContentValue {

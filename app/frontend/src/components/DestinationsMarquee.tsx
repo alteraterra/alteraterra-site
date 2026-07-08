@@ -1,5 +1,5 @@
 /**
- * Slow horizontal scroll of destination names — a quiet, editorial signal of breadth.
+ * Slow horizontal scroll of destination names, a quiet, editorial signal of breadth.
  * Pure CSS animation, no JS scroll listener. Pauses on hover.
  *
  * Items are duplicated so the loop is seamless. Speed scales by item count.
@@ -45,7 +45,7 @@ export default function DestinationsMarquee() {
       aria-label={text('marquee.ariaLabel', 'Destinations')}
       className="marquee-pause relative bg-deepblack border-y border-white/[0.04] overflow-hidden py-8 md:py-10"
     >
-      {/* Edge masks — fade the marquee at left/right edges so items appear & vanish softly */}
+      {/* Edge masks, fade the marquee at left/right edges so items appear & vanish softly */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-deepblack to-transparent z-10" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-deepblack to-transparent z-10" />
 

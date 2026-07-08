@@ -50,7 +50,7 @@ function AnimatedNumber({
 }
 
 /**
- * Discreet stats band — count-in animation on scroll.
+ * Discreet stats band, count-in animation on scroll.
  * Inspired by 21st.dev number tickers; restrained typography and palette
  * so the numbers feel like editorial chapter heads, not dashboard KPIs.
  */

@@ -105,7 +105,7 @@ const DashboardPage: React.FC = () => {
             Overview
           </p>
           <h1 className="font-display text-4xl md:text-5xl text-parchment leading-none">
-            Atelier — overview
+            Atelier, overview
           </h1>
         </div>
         <Link

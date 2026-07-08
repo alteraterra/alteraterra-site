@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useContent } from '@/content/SiteContentContext';
 
 /**
- * SiteHead — overlays CMS-managed SEO + globals onto the static <head> baseline
+ * SiteHead, overlays CMS-managed SEO + globals onto the static <head> baseline
  * shipped in index.html.
  *
  * We PATCH the existing tags in place (instead of emitting new ones via
@@ -70,7 +70,7 @@ export default function SiteHead() {
           if (sameAs.length) data.sameAs = sameAs;
           ld.textContent = JSON.stringify(data);
         } catch {
-          /* malformed static block — leave it as-is */
+          /* malformed static block, leave it as-is */
         }
       }
     }

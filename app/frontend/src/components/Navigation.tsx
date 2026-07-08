@@ -32,7 +32,7 @@ export default function Navigation() {
     return (match?.label || '').trim() || text(item.key, item.key);
   };
 
-  // Sliding underline — one shared DOM element that glides between active links
+  // Sliding underline; one shared DOM element that glides between active links
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const [pill, setPill] = useState<{ left: number; width: number; visible: boolean }>({
@@ -93,8 +93,8 @@ export default function Navigation() {
 
   // Light/dark color tokens for the bar
   const navBarClass = isLight
-    ? 'fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm border-b-[4px] border-[#B86A2E] py-5'
-    : 'fixed top-0 left-0 right-0 z-50 bg-deepblack/95 backdrop-blur-sm border-b-[4px] border-[#B86A2E] py-5';
+    ? 'fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm border-b-[3px] border-[#B86A2E] py-5'
+    : 'fixed top-0 left-0 right-0 z-50 bg-deepblack/95 backdrop-blur-sm border-b-[3px] border-[#B86A2E] py-5';
 
   const brandClass = isLight
     ? 'font-display text-sm tracking-[0.3em] sm:text-base sm:tracking-[0.4em] uppercase text-charcoal hover:text-deepblack transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
@@ -112,7 +112,7 @@ export default function Navigation() {
             Altera Terra
           </Link>
 
-          {/* Desktop links — shared sliding underline */}
+          {/* Desktop links, shared sliding underline */}
           <div ref={navRef} className="relative hidden md:flex items-center gap-10">
             {desktopItems.map((item) => {
               const active = location.pathname === item.path;
@@ -141,7 +141,7 @@ export default function Navigation() {
               );
             })}
 
-            {/* Active underline — glides between links */}
+            {/* Active underline, glides between links */}
             <span
               aria-hidden
               className="pointer-events-none absolute -bottom-2 h-px bg-bronze-warm/90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -176,7 +176,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile fullscreen overlay — stays dark for full-screen contrast */}
+      {/* Mobile fullscreen overlay, stays dark for full-screen contrast */}
       <div
         id="mobile-menu"
         role="dialog"
@@ -215,7 +215,7 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Menu links — centered */}
+        {/* Menu links, centered */}
         <div className="flex-1 flex flex-col items-center justify-center gap-10">
           {navKeys.map((item, i) => (
             <Link

@@ -1,5 +1,5 @@
 /**
- * SiteContent — shape of the single editable site-content blob.
+ * SiteContent, shape of the single editable site-content blob.
  *
  * ARCHITECTURE: one Supabase `site_content` jsonb row (id=1) holds all editable
  * site content. It is fetched once at boot and merged OVER the i18n dictionary,
@@ -9,7 +9,7 @@
  * EVERY field and section is optional. The blob is always treated as a
  * `Partial<SiteContent>`: any section may be absent, any field within a section
  * may be absent, and the i18n dictionary fills the gaps. This is why every
- * property below carries `?` — a partial blob (even `{}`) must typecheck.
+ * property below carries `?`, a partial blob (even `{}`) must typecheck.
  */
 
 export interface HeroContent {

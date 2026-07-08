@@ -43,7 +43,7 @@ export function useMediaList(): UseMediaListReturn {
     try {
       // List the bucket root. Storage `list` is non-recursive: it returns
       // the year-month folders as entries. We then list each folder and
-      // flatten — bounded to a sensible cap.
+      // flatten, bounded to a sensible cap.
       const { data: roots, error: rootErr } = await supabase.storage
         .from(MEDIA_BUCKET)
         .list('', { limit: 200, sortBy: { column: 'created_at', order: 'desc' } });
@@ -81,13 +81,13 @@ export function useMediaList(): UseMediaListReturn {
       }
 
       // Newest first by created_at if available; storage list already sorts,
-      // but folder-fanout breaks the global order — re-sort by name (which
+      // but folder-fanout breaks the global order, re-sort by name (which
       // embeds yearMonth) as a stable fallback.
       collected.sort((a, b) => (a.path < b.path ? 1 : -1));
 
       setItems(collected);
 
-      // Lazy dimension probe — write back as each resolves. Best-effort.
+      // Lazy dimension probe, write back as each resolves. Best-effort.
       collected.forEach((it) => {
         probeDimensions(it.url).then((dims) => {
           if (!dims) return;

@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
  * Inspired by 21st.dev spotlight cards, retuned for editorial luxury:
  * extremely soft, single-hue, no parallax, fades out at the edges.
  *
- * Writes --sx / --sy CSS variables via rAF — zero React state churn.
+ * Writes --sx / --sy CSS variables via rAF, zero React state churn.
  * Auto-disables on touch + reduced-motion.
  */
 export default function Spotlight({

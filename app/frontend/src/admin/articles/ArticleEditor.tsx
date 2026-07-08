@@ -605,7 +605,7 @@ export default function ArticleEditor() {
                     <Switch checked={!!field.value} onCheckedChange={field.onChange} />
                   )}
                 />
-                <Label>noindex — exclude from search engines</Label>
+                <Label>noindex, exclude from search engines</Label>
               </div>
             </Section>
 

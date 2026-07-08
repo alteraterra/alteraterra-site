@@ -1,11 +1,10 @@
 import Layout from '@/components/Layout';
-import Inspirations from '@/components/Inspirations';
+import JournalArchive from '@/components/JournalArchive';
 
 export default function JournalPage() {
   return (
     <Layout>
-      <h1 className="sr-only">Journal</h1>
-      <Inspirations />
+      <JournalArchive />
     </Layout>
   );
 }

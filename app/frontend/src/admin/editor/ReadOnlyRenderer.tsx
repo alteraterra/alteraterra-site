@@ -11,7 +11,7 @@ import type {
 /**
  * Public read-only renderer for blog Block[].
  *
- * Server-renderable — does not touch window/document, does not instantiate a
+ * Server-renderable, does not touch window/document, does not instantiate a
  * TipTap editor.  Mirrors the typographic system used in ArticlePage.tsx
  * (Cormorant headings, Inter body, bronze hairlines, parchment surface).
  *
@@ -60,7 +60,7 @@ export default function ReadOnlyRenderer({ blocks, disableDropCap }: Props) {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
- * Block views — typography matches the public ArticlePage.
+ * Block views, typography matches the public ArticlePage.
  * ────────────────────────────────────────────────────────────────────────── */
 
 function ParagraphView({
@@ -80,7 +80,7 @@ function ParagraphView({
           'font-body text-[15px] sm:text-[16px] md:text-[17px]',
           'leading-[1.9] sm:leading-[2] text-charcoal/80',
           'mb-8 sm:mb-10 max-w-2xl mx-auto break-words',
-          // Drop-cap via :first-letter — bronze, display face.
+          // Drop-cap via :first-letter, bronze, display face.
           'first-letter:float-left first-letter:mr-2 sm:first-letter:mr-4',
           'first-letter:mt-1 first-letter:font-display first-letter:font-light',
           'first-letter:text-[3rem] sm:first-letter:text-[4.5rem] md:first-letter:text-[5rem]',
@@ -203,7 +203,7 @@ function FaqView({ block }: { block: FaqBlock }) {
   return (
     <section
       className="my-14 sm:my-20 max-w-2xl mx-auto"
-      // schema.org/FAQPage microdata — wired through here so the SEO phase
+      // schema.org/FAQPage microdata, wired through here so the SEO phase
       // can layer JSON-LD on top without changing the DOM.
       itemScope
       itemType="https://schema.org/FAQPage"

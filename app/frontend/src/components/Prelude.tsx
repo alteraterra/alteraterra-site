@@ -18,7 +18,7 @@ function PreludeText() {
           }`}
         />
 
-        {/* Opening — the WHY */}
+        {/* Opening, the WHY */}
         <p
           className={`font-display text-lg font-light leading-[1.8] text-charcoal/85 sm:text-2xl md:text-[1.75rem] lg:text-3xl transition-all duration-1000 delay-200 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
@@ -39,7 +39,7 @@ function PreludeText() {
           })()}
         </p>
 
-        {/* Values — the DNA */}
+        {/* Values, the DNA */}
         <p
           className={`mt-10 font-display text-base font-light leading-[1.8] text-charcoal/80 italic sm:text-xl md:text-2xl transition-all duration-1000 delay-500 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
@@ -54,7 +54,7 @@ function PreludeText() {
           }`}
         />
 
-        {/* The collective identity — visually elevated */}
+        {/* The collective identity, visually elevated */}
         <p
           className={`mt-16 font-display text-lg font-normal leading-[1.85] text-charcoal sm:text-xl md:text-2xl tracking-wide transition-all duration-1000 delay-[900ms] ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'

@@ -62,7 +62,7 @@ function ServiceCard({
           <h3 className="font-display text-2xl font-normal text-charcoal sm:text-3xl md:text-4xl leading-tight">
             {title}
           </h3>
-          {/* Hover hairline — bronze line grows from the left under the title */}
+          {/* Hover hairline, bronze line grows from the left under the title */}
           <span
             aria-hidden
             className="absolute left-0 -bottom-1 block h-px w-full bg-bronze-warm origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -78,7 +78,7 @@ function ServiceCard({
 }
 
 /**
- * Right-rail sticky table of contents — desktop only.
+ * Right-rail sticky table of contents, desktop only.
  * Sticks to the viewport as the service blocks scroll past on the left.
  * Active index is driven by IntersectionObserver on the service blocks.
  */
@@ -121,7 +121,7 @@ export default function TheHouse() {
 
   // Resolve the service list: prefer the CMS `house.services` blob, otherwise
   // fall back to today's hardcoded data (i18n copy + literal image srcs).
-  // Never render an empty section — fall back whenever the blob list is absent/empty.
+  // Never render an empty section, fall back whenever the blob list is absent/empty.
   const cmsServices = section('house')?.services;
   const services: ResolvedService[] = (cmsServices && cmsServices.length > 0)
     ? cmsServices.map((svc, i) => {

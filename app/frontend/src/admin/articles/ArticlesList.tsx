@@ -112,7 +112,7 @@ export default function ArticlesList() {
           <div>
             <h1 className="font-serif text-3xl">Articles</h1>
             <p className="mt-1 text-sm text-stone-600">
-              Manage every post — drafts, scheduled, and published.
+              Manage every post, drafts, scheduled, and published.
             </p>
           </div>
           <Button asChild>

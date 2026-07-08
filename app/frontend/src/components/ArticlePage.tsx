@@ -5,7 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useTranslatedArticles, type TranslatedArticle } from '@/data/useTranslatedArticles';
 import type { ArticleSection } from '@/data/journalArticles';
 
-/* ─── Reading progress bar — writes to a CSS variable via rAF, zero React state ─── */
+/* ─── Reading progress bar, writes to a CSS variable via rAF, zero React state ─── */
 function ReadingProgress() {
   useEffect(() => {
     let frame = 0;
@@ -39,7 +39,7 @@ function ReadingProgress() {
 import { useReveal } from '@/hooks/useReveal';
 const useFadeIn = (threshold = 0.15) => useReveal({ threshold });
 
-/* ─── Hero — full viewport, cinematic ─── */
+/* ─── Hero, full viewport, cinematic ─── */
 function HeroSection({ article }: { article: TranslatedArticle }) {
   const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
@@ -102,7 +102,7 @@ function HeroSection({ article }: { article: TranslatedArticle }) {
       <div className="absolute inset-0 bg-deepblack/40" />
       <div className="absolute inset-0 bg-gradient-to-t from-deepblack via-deepblack/20 to-transparent" />
 
-      {/* Content — positioned at bottom */}
+      {/* Content, positioned at bottom */}
       <div className="absolute inset-0 flex flex-col justify-end px-5 sm:px-8 pb-16 sm:pb-20 md:pb-28 lg:pb-32">
         <div className="mx-auto w-full max-w-4xl">
           <span
@@ -144,7 +144,7 @@ function HeroSection({ article }: { article: TranslatedArticle }) {
         </div>
       </div>
 
-      {/* Scroll hint — hidden on small mobile, fades out once user scrolls past 10% of doc */}
+      {/* Scroll hint, hidden on small mobile, fades out once user scrolls past 10% of doc */}
       <div
         className={`absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-[1200ms] hidden sm:block ${
           loaded && !hintHidden ? 'opacity-100' : 'opacity-0'
@@ -214,9 +214,9 @@ function ImageSection({ content, caption }: { content: string; caption?: string 
       ref={ref}
       className={`transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
     >
-      {/* Image — sits within the reading column on mobile, gently extends past it on desktop (never full-bleed) */}
+      {/* Image, sits within the reading column on mobile, gently extends past it on desktop (never full-bleed) */}
       <figure className="my-14 sm:my-20 md:my-28 relative">
-        {/* breathing space — bronze hairline rests the eye before & after */}
+        {/* breathing space, bronze hairline rests the eye before & after */}
         <div className="mx-auto mb-10 sm:mb-14 h-px w-16 bg-gradient-to-r from-transparent via-bronze/40 to-transparent" />
         <div className="relative mx-0 sm:-mx-4 md:-mx-12 lg:-mx-20 overflow-hidden rounded-sm">
           <div className="relative aspect-[16/10] max-h-[68vh] mx-auto">
@@ -254,7 +254,7 @@ function QuoteSection({ content }: { content: string }) {
       ref={ref}
       className={`transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
-      {/* Dark mood break — extends a touch past the column on desktop, never full-bleed */}
+      {/* Dark mood break, extends a touch past the column on desktop, never full-bleed */}
       <div className="my-12 sm:my-16 md:my-24 mx-0 sm:-mx-4 md:-mx-12 lg:-mx-20 bg-deepblack py-14 sm:py-20 md:py-24 px-5 sm:px-8 rounded-sm relative overflow-hidden">
         {/* Off-center bronze hairline above quote */}
         <div className="mx-auto mb-8 sm:mb-10 h-px w-12 bg-gradient-to-r from-transparent via-bronze-warm/80 to-transparent" />
@@ -273,7 +273,7 @@ function QuoteSection({ content }: { content: string }) {
   );
 }
 
-/* ─── Callout — bronze-warm left rule on parchment, optional italic title ─── */
+/* ─── Callout, bronze-warm left rule on parchment, optional italic title ─── */
 function CalloutSection({ content, title }: { content: string; title?: string }) {
   const { ref, visible } = useFadeIn();
   return (
@@ -298,7 +298,7 @@ function CalloutSection({ content, title }: { content: string; title?: string })
   );
 }
 
-/* ─── FAQ — <dl> with bronze-warm dividers between items ─── */
+/* ─── FAQ, <dl> with bronze-warm dividers between items ─── */
 function FaqSection({ items }: { items: { question: string; answer: string }[] }) {
   const { ref, visible } = useFadeIn();
   if (!items || items.length === 0) return null;
@@ -468,7 +468,7 @@ export default function ArticlePage() {
       <ReadingProgress />
       <HeroSection article={article} />
 
-      {/* Article body — overflow-x-hidden prevents horizontal scroll from full-bleed elements */}
+      {/* Article body, overflow-x-hidden prevents horizontal scroll from full-bleed elements */}
       <article className="bg-parchment paper-noise py-14 sm:py-20 md:py-28 overflow-x-hidden">
         <div className="mx-auto max-w-3xl px-4 sm:px-8">
           {/* Opening ornament */}

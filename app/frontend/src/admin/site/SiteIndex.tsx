@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const SECTIONS = [
   { to: '/admin/site/home', title: 'Home', desc: 'Hero, prelude, enquiry & newsletter copy and images' },
-  { to: '/admin/site/the-house', title: 'The House', desc: 'Service list — titles, descriptions, images' },
+  { to: '/admin/site/the-house', title: 'The House', desc: 'Service list, titles, descriptions, images' },
   { to: '/admin/site/team', title: 'Team', desc: 'Members, pillars, headings and quote' },
   { to: '/admin/site/profiles', title: 'Profiles', desc: 'Individual team member bio pages' },
   { to: '/admin/site/stats', title: 'Stats & Marquee', desc: 'Number band and the destinations strip' },
@@ -20,7 +20,7 @@ export default function SiteIndex() {
         <h1 className="font-display text-3xl text-parchment">Site Content</h1>
         <p className="mt-2 text-sm leading-relaxed text-parchment/60">
           Edit every element of the public site. Changes overlay the built-in
-          defaults — clear a field to fall back to the original copy.
+          defaults, clear a field to fall back to the original copy.
         </p>
       </header>
 

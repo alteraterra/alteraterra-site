@@ -43,7 +43,7 @@ export default function RequestConsultation() {
   const [areaOfInterest, setAreaOfInterest] = useState('');
   const [message, setMessage] = useState('');
 
-  // Field-level validation state — used only to drive aria-invalid on submit.
+  // Field-level validation state, used only to drive aria-invalid on submit.
   const [fieldErrors, setFieldErrors] = useState<{
     fullName?: string;
     email?: string;
@@ -277,7 +277,7 @@ export default function RequestConsultation() {
                 />
               </div>
 
-              {/* Interest — Radix Select */}
+              {/* Interest, Radix Select */}
               <div>
                 <label
                   htmlFor={interestId}
@@ -394,7 +394,7 @@ export default function RequestConsultation() {
                 </p>
               )}
 
-              {/* Submit — width-stable hover (no tracking reflow) */}
+              {/* Submit, width-stable hover (no tracking reflow) */}
               <div className="pt-6 text-center">
                 <button
                   type="submit"

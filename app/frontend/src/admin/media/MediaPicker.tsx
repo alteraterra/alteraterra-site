@@ -33,7 +33,7 @@ export interface MediaPickerProps {
  */
 export function MediaPicker({ open, onClose, onSelect }: MediaPickerProps) {
   const { items, isLoading, error, refetch, removeLocal: _removeLocal, prependLocal } = useMediaList();
-  // _removeLocal intentionally unused in picker — no delete affordance here.
+  // _removeLocal intentionally unused in picker, no delete affordance here.
   void _removeLocal;
   const { uploadFile, isUploading, progress } = useMediaUpload();
 
@@ -183,7 +183,7 @@ export function MediaPicker({ open, onClose, onSelect }: MediaPickerProps) {
                 <div className="py-10 text-center text-sm text-mist">
                   {filter
                     ? 'No files match that filter.'
-                    : 'No media yet — drop a file to upload.'}
+                    : 'No media yet, drop a file to upload.'}
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
