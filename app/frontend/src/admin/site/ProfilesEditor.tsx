@@ -19,6 +19,13 @@ export default function ProfilesEditor() {
     setNewSlug('');
   };
 
+  const removeProfile = (slug: string) => {
+    // ponytail: native confirm; the styled AlertDialog isn't worth the wiring for an admin-only action
+    if (!window.confirm(`Remove the "${slug}" profile? Its bio page at /team/${slug} will stop resolving.`)) return;
+    const { [slug]: _removed, ...rest } = profiles;
+    update(['profiles'], rest);
+  };
+
   return (
     <EditorShell
       title="Profiles"
@@ -49,6 +56,13 @@ export default function ProfilesEditor() {
                 />
               )}
             />
+            <button
+              type="button"
+              onClick={() => removeProfile(slug)}
+              className="ease-luxe rounded-md border border-red-400/40 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-red-300/90 transition-colors duration-300 hover:border-red-400 hover:text-red-300"
+            >
+              Remove profile
+            </button>
           </Group>
         );
       })}

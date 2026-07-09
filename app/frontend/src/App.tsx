@@ -19,8 +19,7 @@ const NewsletterPage = lazy(() => import('./pages/NewsletterPage'));
 const EnquirePage = lazy(() => import('./pages/EnquirePage'));
 const MeetTheTeamPage = lazy(() => import('./pages/MeetTheTeamPage'));
 const ConsultationPage = lazy(() => import('./pages/ConsultationPage'));
-const DomenicoProfilePage = lazy(() => import('./pages/DomenicoProfilePage'));
-const OscarProfilePage = lazy(() => import('./pages/OscarProfilePage'));
+const TeamProfilePage = lazy(() => import('./pages/TeamProfilePage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
@@ -78,8 +77,7 @@ const App = () => (
                 <Route path="/enquire" element={<EnquirePage />} />
                 <Route path="/meet-the-team" element={<MeetTheTeamPage />} />
                 <Route path="/consultation" element={<ConsultationPage />} />
-                <Route path="/team/domenico-morelli" element={<DomenicoProfilePage />} />
-                <Route path="/team/oscar-motta" element={<OscarProfilePage />} />
+                <Route path="/team/:slug" element={<TeamProfilePage />} />
                 <Route path="/privacy" element={<LegalPage kind="privacy" />} />
                 <Route path="/terms" element={<LegalPage kind="terms" />} />
 

@@ -1,22 +1,45 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useContent } from '@/content/SiteContentContext';
+import NotFound from '@/pages/NotFound';
 
-export default function MargaritaProfilePage() {
+/**
+ * Generic team-member profile page for /team/:slug.
+ * Content comes from the CMS `profiles` section (managed in Admin > Site > Profiles);
+ * the two founders keep i18n fallbacks so their pages survive an empty CMS.
+ * Unknown slugs render the 404 page.
+ */
+const FALLBACKS: Record<
+  string,
+  { name: string; roleKey: string; image: string; objectPosition: string; bioKeys: string[] }
+> = {
+  'domenico-morelli': {
+    name: 'Domenico Morelli',
+    roleKey: 'domenico.role',
+    image: '/assets/domenico-morelli.jpg',
+    objectPosition: 'center 20%',
+    bioKeys: ['domenico.p1', 'domenico.p2', 'domenico.p3', 'domenico.p4', 'domenico.p5', 'domenico.p6'],
+  },
+  'oscar-motta': {
+    name: 'Oscar Motta',
+    roleKey: 'oscar.role',
+    image: '/assets/oscar-motta.jpg',
+    objectPosition: 'center 15%',
+    bioKeys: ['oscar.p1', 'oscar.p2', 'oscar.p3', 'oscar.p4'],
+  },
+};
+
+export default function TeamProfilePage() {
+  const { slug = '' } = useParams<{ slug: string }>();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const { t } = useLanguage();
   const { section } = useContent();
 
-  const profile = section('profiles')?.['margarita-arango'];
-  const name = profile?.name || 'Margarita Arango';
-  const role = profile?.role || t('margarita.role');
-  const image = profile?.image || '/assets/margarita-arango.jpg';
-  const imageAlt = profile?.imageAlt || 'Margarita Arango';
-  const objectPosition = profile?.objectPosition || 'center';
-  const bio = profile?.bio ?? [t('margarita.p1')];
+  const profile = section('profiles')?.[slug];
+  const fallback = FALLBACKS[slug];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,10 +52,23 @@ export default function MargaritaProfilePage() {
     return () => observer.disconnect();
   }, []);
 
+  if (!profile && !fallback) return <NotFound />;
+
+  const name = profile?.name || fallback?.name || '';
+  const role = profile?.role || (fallback ? t(fallback.roleKey) : '');
+  const image = profile?.image || fallback?.image || '';
+  const imageAlt = profile?.imageAlt || name;
+  const objectPosition = profile?.objectPosition || fallback?.objectPosition || 'center';
+  const bio =
+    profile?.bio && profile.bio.length > 0
+      ? profile.bio
+      : fallback
+        ? fallback.bioKeys.map((k) => t(k))
+        : [];
+
   return (
     <Layout>
       <section ref={ref} className="bg-deepblack relative py-28 md:py-36">
-        {/* Back link */}
         <div className="mx-auto max-w-4xl px-8 mb-16">
           <Link
             to="/meet-the-team"
@@ -43,28 +79,27 @@ export default function MargaritaProfilePage() {
           </Link>
         </div>
 
-        {/* Profile header */}
         <div
           className={`mx-auto max-w-4xl px-8 transition-all duration-1000 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
-            {/* Portrait */}
             <div className="flex-shrink-0 mx-auto md:mx-0">
               <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden">
                 <div className="absolute inset-0 rounded-full border border-white/[0.06] z-10" />
-                <img
-                  src={image}
-                  alt={imageAlt}
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition }}
-                />
+                {image && (
+                  <img
+                    src={image}
+                    alt={imageAlt}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition }}
+                  />
+                )}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-deepblack/40 via-transparent to-transparent" />
               </div>
             </div>
 
-            {/* Bio content */}
             <div className="flex-1">
               <span className="font-body text-[11px] tracking-[0.5em] uppercase text-bronze/75 block mb-4">
                 {t('profile.label')}
@@ -93,7 +128,6 @@ export default function MargaritaProfilePage() {
                 ))}
               </div>
 
-              {/* CTA */}
               <div className="mt-14">
                 <Link
                   to="/consultation"
