@@ -38,6 +38,9 @@ export default function TeamProfilePage() {
   const { t } = useLanguage();
   const { section } = useContent();
 
+  // Data chain: team member entry (the CMS "Create member" flow) -> legacy
+  // profiles section -> founder i18n fallbacks.
+  const member = section('team')?.members?.find((m) => m.slug === slug);
   const profile = section('profiles')?.[slug];
   const fallback = FALLBACKS[slug];
 
@@ -52,19 +55,22 @@ export default function TeamProfilePage() {
     return () => observer.disconnect();
   }, []);
 
-  if (!profile && !fallback) return <NotFound />;
+  if (!member && !profile && !fallback) return <NotFound />;
 
-  const name = profile?.name || fallback?.name || '';
-  const role = profile?.role || (fallback ? t(fallback.roleKey) : '');
-  const image = profile?.image || fallback?.image || '';
-  const imageAlt = profile?.imageAlt || name;
-  const objectPosition = profile?.objectPosition || fallback?.objectPosition || 'center';
+  const name = member?.name || profile?.name || fallback?.name || '';
+  const role = member?.role || profile?.role || (fallback ? t(fallback.roleKey) : '');
+  const image = member?.image || profile?.image || fallback?.image || '';
+  const imageAlt = member?.imageAlt || profile?.imageAlt || name;
+  const objectPosition =
+    member?.objectPosition || profile?.objectPosition || fallback?.objectPosition || 'center';
   const bio =
-    profile?.bio && profile.bio.length > 0
-      ? profile.bio
-      : fallback
-        ? fallback.bioKeys.map((k) => t(k))
-        : [];
+    member?.bio && member.bio.length > 0
+      ? member.bio
+      : profile?.bio && profile.bio.length > 0
+        ? profile.bio
+        : fallback
+          ? fallback.bioKeys.map((k) => t(k))
+          : [];
 
   return (
     <Layout>

@@ -4,6 +4,15 @@ import ImageField from './ImageField';
 import ListEditor from './ListEditor';
 import type { TeamMember, TeamPillar } from '@/content/schema';
 
+/** "Oscar Motta" -> "oscar-motta"; the admin never types slugs by hand. */
+const kebab = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
 export default function TeamEditor() {
   const hook = useSiteContentDraft();
   const { draft, update } = hook;
@@ -12,7 +21,7 @@ export default function TeamEditor() {
   return (
     <EditorShell
       title="Team"
-      description="Section headings, the members grid, and the values pillars."
+      description="Section headings, the members grid, and the values pillars. Each member is one complete entry: card + bio page."
       hook={hook}
     >
       <Group title="Headings">
@@ -28,17 +37,43 @@ export default function TeamEditor() {
         <ListEditor<TeamMember>
           items={team.members ?? []}
           label="Members"
-          addLabel="Add member"
+          addLabel="Create member"
           onChange={(next) => update(['team', 'members'], next)}
-          newItem={() => ({ name: '', role: '', slug: '', image: '', imageAlt: '', objectPosition: 'center' })}
+          newItem={() => ({ name: '', role: '', slug: '', image: '', imageAlt: '', objectPosition: 'center', bio: [] })}
           renderItem={(m, _idx, set) => (
             <div className="space-y-3">
-              <TextField label="Name" value={m.name ?? ''} onChange={(v) => set({ ...m, name: v })} />
+              <TextField
+                label="Name"
+                value={m.name ?? ''}
+                onChange={(v) =>
+                  // Slug follows the name until it has been set some other way.
+                  set({ ...m, name: v, slug: !m.slug || m.slug === kebab(m.name ?? '') ? kebab(v) : m.slug })
+                }
+              />
               <TextField label="Role" value={m.role ?? ''} onChange={(v) => set({ ...m, role: v })} />
-              <TextField label="Slug (profile route)" value={m.slug ?? ''} onChange={(v) => set({ ...m, slug: v })} hint="e.g. oscar-motta" />
               <ImageField label="Portrait" value={m.image} onChange={(v) => set({ ...m, image: v })} />
               <TextField label="Portrait alt" value={m.imageAlt ?? ''} onChange={(v) => set({ ...m, imageAlt: v })} />
               <TextField label="Object position" value={m.objectPosition ?? ''} onChange={(v) => set({ ...m, objectPosition: v })} hint="e.g. center 20%" />
+              <ListEditor<string>
+                items={m.bio ?? []}
+                label="Bio paragraphs (profile page)"
+                addLabel="Add paragraph"
+                onChange={(next) => set({ ...m, bio: next })}
+                newItem={() => ''}
+                renderItem={(para, _i, setPara) => (
+                  <textarea
+                    value={para}
+                    rows={3}
+                    onChange={(e) => setPara(e.target.value)}
+                    className="ease-luxe w-full resize-y rounded-md border border-bronze/30 bg-deepblack/40 px-3 py-2 text-[15px] leading-relaxed text-parchment outline-none transition-colors duration-300 focus:border-bronze-warm"
+                  />
+                )}
+              />
+              {m.slug && (
+                <p className="font-body text-[11px] tracking-wide text-parchment/50">
+                  Profile page: /team/{m.slug}
+                </p>
+              )}
             </div>
           )}
         />

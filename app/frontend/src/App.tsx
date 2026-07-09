@@ -39,7 +39,6 @@ const SiteIndex = lazy(() => import('./admin/site/SiteIndex'));
 const HomeEditor = lazy(() => import('./admin/site/HomeEditor'));
 const HouseEditor = lazy(() => import('./admin/site/HouseEditor'));
 const TeamEditor = lazy(() => import('./admin/site/TeamEditor'));
-const ProfilesEditor = lazy(() => import('./admin/site/ProfilesEditor'));
 const StatsEditor = lazy(() => import('./admin/site/StatsEditor'));
 const ConsultEditor = lazy(() => import('./admin/site/ConsultEditor'));
 const FooterEditor = lazy(() => import('./admin/site/FooterEditor'));
@@ -132,7 +131,6 @@ const App = () => (
                     <Route path="home" element={<HomeEditor />} />
                     <Route path="the-house" element={<HouseEditor />} />
                     <Route path="team" element={<TeamEditor />} />
-                    <Route path="profiles" element={<ProfilesEditor />} />
                     <Route path="stats" element={<StatsEditor />} />
                     <Route path="consult" element={<ConsultEditor />} />
                     <Route path="footer" element={<FooterEditor />} />

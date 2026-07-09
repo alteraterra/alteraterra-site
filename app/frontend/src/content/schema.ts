@@ -55,6 +55,8 @@ export interface TeamMember {
   image?: string;
   imageAlt?: string;
   objectPosition?: string;
+  /** Profile-page paragraphs; the member entry is the single source for a person. */
+  bio?: string[];
 }
 
 export interface TeamPillar {

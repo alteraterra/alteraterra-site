@@ -4,7 +4,6 @@ const SECTIONS = [
   { to: '/admin/site/home', title: 'Home', desc: 'Hero, prelude, enquiry & newsletter copy and images' },
   { to: '/admin/site/the-house', title: 'The House', desc: 'Service list, titles, descriptions, images' },
   { to: '/admin/site/team', title: 'Team', desc: 'Members, pillars, headings and quote' },
-  { to: '/admin/site/profiles', title: 'Profiles', desc: 'Individual team member bio pages' },
   { to: '/admin/site/stats', title: 'Stats & Marquee', desc: 'Number band and the destinations strip' },
   { to: '/admin/site/consult', title: 'Consultation', desc: 'Form labels, interests and the thank-you note' },
   { to: '/admin/site/footer', title: 'Footer & Nav', desc: 'Cities, social, partner, nav labels' },
