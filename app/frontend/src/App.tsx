@@ -58,21 +58,32 @@ const INITIAL = getBootedContent();
 
 /**
  * Magic-link landings can arrive on any page (Supabase falls back to the Site URL
- * when the redirect target isn't allowlisted). The session lives in the URL hash and
- * supabase-js consumes it; this forwards the freshly signed-in admin to the CMS.
+ * when the redirect target isn't allowlisted). The session lives in the URL hash;
+ * supabase-js consumes AND STRIPS it before React mounts, so the flag must be
+ * captured at module load - checking location.hash inside an effect loses the race.
  */
+const landedWithAuthHash =
+  typeof window !== 'undefined' && window.location.hash.includes('access_token');
+
 function MagicLinkRedirect() {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!window.location.hash.includes('access_token')) return;
-    // Session may already be consumed by the time we subscribe - check once, then listen.
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate('/admin', { replace: true });
-    });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_IN') navigate('/admin', { replace: true });
-    });
-    return () => subscription.unsubscribe();
+    if (!landedWithAuthHash) return;
+    let cancelled = false;
+    (async () => {
+      // Poll until supabase-js finishes turning the hash into a session (max 5s).
+      for (let i = 0; i < 20 && !cancelled; i++) {
+        const { data } = await supabase.auth.getSession();
+        if (data.session) {
+          if (!cancelled) navigate('/admin', { replace: true });
+          return;
+        }
+        await new Promise((r) => setTimeout(r, 250));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [navigate]);
   return null;
 }
