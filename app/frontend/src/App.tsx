@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
 import { LanguageProvider } from '@/i18n/LanguageContext';
 import { SiteContentProvider } from '@/content/SiteContentContext';
 import { getBootedContent } from '@/content/loadSiteContent';
@@ -55,6 +56,27 @@ const queryClient = new QueryClient();
 // is required because useContent().text() calls t() from useLanguage().
 const INITIAL = getBootedContent();
 
+/**
+ * Magic-link landings can arrive on any page (Supabase falls back to the Site URL
+ * when the redirect target isn't allowlisted). The session lives in the URL hash and
+ * supabase-js consumes it; this forwards the freshly signed-in admin to the CMS.
+ */
+function MagicLinkRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!window.location.hash.includes('access_token')) return;
+    // Session may already be consumed by the time we subscribe - check once, then listen.
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate('/admin', { replace: true });
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN') navigate('/admin', { replace: true });
+    });
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+  return null;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
@@ -66,6 +88,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <BrowserRouter>
+            <MagicLinkRedirect />
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
                 <Route path="/" element={<Index />} />
