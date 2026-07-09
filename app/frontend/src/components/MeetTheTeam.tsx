@@ -47,7 +47,8 @@ export default function MeetTheTeam() {
           key: m.slug ?? m.name ?? `team-${i}`,
           name: m.name ?? '',
           role: m.role ?? '',
-          slug: m.slug ?? '',
+          // CMS stores bare slugs ("oscar-motta"); routes live under /team/. Accept both shapes.
+          slug: m.slug ? (m.slug.startsWith('/') ? m.slug : `/team/${m.slug}`) : '',
           image: m.image ?? '',
           objectPosition: m.objectPosition,
           imgClassName: '',
