@@ -23,7 +23,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         Skip to content
       </a>
       <Navigation />
-      <main id="main" key={pathname} className="flex-1 pt-[68px] route-fade">
+      {/* pt must equal the fixed nav height (nav content + 3px bronze stroke = 67px), else a sliver of the parchment body shows through */}
+      <main id="main" key={pathname} className="flex-1 pt-[67px] route-fade">
         {children}
       </main>
       <Footer />
