@@ -3,6 +3,15 @@ import { createClient } from '@supabase/supabase-js';
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
+/**
+ * True when this page load arrived via a magic-link (session in the URL hash).
+ * MUST be captured here, before createClient below: supabase-js consumes and
+ * strips the hash during client init, and module/microtask timing makes any
+ * later check (even other modules' top level) lose the race.
+ */
+export const AUTH_HASH_LANDING =
+  typeof window !== 'undefined' && window.location.hash.includes('access_token');
+
 export const SUPABASE_CONFIGURED = Boolean(url && key);
 
 // ponytail: dummy client when env is missing so the app still boots locally.

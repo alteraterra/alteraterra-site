@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { supabase, AUTH_HASH_LANDING } from '@/lib/supabase';
 import { LanguageProvider } from '@/i18n/LanguageContext';
 import { SiteContentProvider } from '@/content/SiteContentContext';
 import { getBootedContent } from '@/content/loadSiteContent';
@@ -58,17 +58,14 @@ const INITIAL = getBootedContent();
 
 /**
  * Magic-link landings can arrive on any page (Supabase falls back to the Site URL
- * when the redirect target isn't allowlisted). The session lives in the URL hash;
- * supabase-js consumes AND STRIPS it before React mounts, so the flag must be
- * captured at module load - checking location.hash inside an effect loses the race.
+ * when the redirect target isn't allowlisted). AUTH_HASH_LANDING is captured in
+ * lib/supabase.ts before the client strips the hash; this forwards the freshly
+ * signed-in admin to the CMS once the session is stored.
  */
-const landedWithAuthHash =
-  typeof window !== 'undefined' && window.location.hash.includes('access_token');
-
 function MagicLinkRedirect() {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!landedWithAuthHash) return;
+    if (!AUTH_HASH_LANDING) return;
     let cancelled = false;
     (async () => {
       // Poll until supabase-js finishes turning the hash into a session (max 5s).
