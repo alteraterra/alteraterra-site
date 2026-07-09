@@ -62,17 +62,22 @@ const INITIAL = getBootedContent();
  * lib/supabase.ts before the client strips the hash; this forwards the freshly
  * signed-in admin to the CMS once the session is stored.
  */
+let magicRedirectDone = false; // one-shot: navigate identity changes per route, the effect re-runs, and re-firing would pin the admin to /admin
+
 function MagicLinkRedirect() {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!AUTH_HASH_LANDING) return;
+    if (!AUTH_HASH_LANDING || magicRedirectDone) return;
     let cancelled = false;
     (async () => {
       // Poll until supabase-js finishes turning the hash into a session (max 5s).
       for (let i = 0; i < 20 && !cancelled; i++) {
         const { data } = await supabase.auth.getSession();
         if (data.session) {
-          if (!cancelled) navigate('/admin', { replace: true });
+          if (!cancelled) {
+            magicRedirectDone = true;
+            navigate('/admin', { replace: true });
+          }
           return;
         }
         await new Promise((r) => setTimeout(r, 250));
