@@ -56,7 +56,9 @@ export default function Hero() {
         </p>
       </div>
 
-      <div className="hero-entry hero-entry--cta absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
+      {/* Centered via flex, not translate-x: the heroLift animation overrides
+          the transform property and would strip a translateX(-50%). */}
+      <div className="hero-entry hero-entry--cta absolute bottom-12 inset-x-0 z-10 flex justify-center">
         <Link to={get('hero.ctaTo') || '/prelude'} className="flex flex-col items-center gap-4 group">
           <span className="font-body text-sm tracking-[0.4em] uppercase text-parchment/70 pl-[0.4em] group-hover:text-bronze-warm group-hover:tracking-[0.5em] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
             {text('hero.enter', 'hero.enter')}
