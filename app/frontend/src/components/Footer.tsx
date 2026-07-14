@@ -23,8 +23,8 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Instagram */}
-        <div className="flex justify-center mb-10">
+        {/* Social */}
+        <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
           <a
             href={text('footer.instagramUrl', 'https://www.instagram.com/terraaltera/')}
             target="_blank"
@@ -50,6 +50,34 @@ export default function Footer() {
             </svg>
             <span className="font-body text-xs tracking-[0.3em] uppercase">
               {text('footer.instagramHandle', '@terraaltera')}
+            </span>
+          </a>
+
+          <a
+            href={text('footer.linkedinUrl', 'https://www.linkedin.com/company/altera-terra/')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 text-white/75 hover:text-bronze transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            aria-label="Connect with us on LinkedIn"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+            >
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
+            <span className="font-body text-xs tracking-[0.3em] uppercase">
+              {text('footer.linkedinHandle', 'Altera Terra')}
             </span>
           </a>
         </div>

@@ -45,9 +45,9 @@ export const translations: Dict = {
   'house.s5.desc': 'Aesthetic intelligence applied to acquisition, rare works, emerging voices, and private collections navigated with scholarly care.',
 
   /* ── Journal / Inspirations ── */
-  'journal.label': 'Journal',
+  'journal.label': 'Essays · Observations · Correspondence',
   'journal.title': 'Dispatches from Another Land',
-  'journal.subtitle': 'Stories of place, taste, and the art of living deliberately.',
+  'journal.subtitle': 'An ongoing correspondence on culture, craftsmanship, remarkable people and the art of living deliberately.',
   'journal.readmore': 'Read more →',
   'journal.continue': 'Continue Reading',
   'journal.prev': '← Previous',

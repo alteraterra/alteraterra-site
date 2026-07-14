@@ -38,27 +38,27 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
-        <h1 className="hero-entry hero-entry--brand font-display text-[2.25rem] font-normal tracking-[0.2em] uppercase text-white sm:text-[3rem] sm:tracking-[0.35em] md:text-[3.75rem] md:tracking-[0.5em] lg:text-[4.5rem] text-center max-w-[95vw]">
+        <h1 className="hero-entry hero-entry--brand font-display text-[2.25rem] font-normal tracking-[0.2em] uppercase text-parchment/90 sm:text-[3rem] sm:tracking-[0.35em] md:text-[3.75rem] md:tracking-[0.5em] lg:text-[4.5rem] text-center max-w-[95vw] pl-[0.2em] sm:pl-[0.35em] md:pl-[0.5em]">
           {text('hero.brand', 'hero.brand')}
         </h1>
 
-        <p className="hero-entry hero-entry--motto mt-4 font-display text-2xl tracking-[0.18em] italic font-normal sm:tracking-[0.25em] md:text-[1.75rem] md:tracking-[0.35em] text-[#B86A2E] text-center max-w-[95vw] [text-shadow:0_1px_2px_rgba(0,0,0,0.55),0_2px_16px_rgba(0,0,0,0.6)]">
+        <p className="hero-entry hero-entry--motto mt-4 font-display text-2xl tracking-[0.18em] italic font-normal sm:tracking-[0.25em] md:text-[1.75rem] md:tracking-[0.35em] text-[#B86A2E] text-center max-w-[95vw] pl-[0.18em] sm:pl-[0.25em] md:pl-[0.35em] [text-shadow:0_1px_2px_rgba(0,0,0,0.55),0_2px_16px_rgba(0,0,0,0.6)]">
           {text('hero.motto', 'hero.motto')}
         </p>
 
         <div className="hero-entry hero-entry--rule mt-8 mb-8 h-px w-16 bg-gradient-to-r from-transparent via-bronze/60 to-transparent" />
 
-        <p className="hero-entry hero-entry--desc1 mt-1 font-body text-sm tracking-[0.2em] sm:text-base sm:tracking-[0.25em] uppercase text-white/90 font-normal text-center max-w-[90vw]">
+        <p className="hero-entry hero-entry--desc1 mt-1 font-body text-sm tracking-[0.2em] sm:text-base sm:tracking-[0.25em] uppercase text-parchment/75 font-normal text-center max-w-[90vw] pl-[0.2em] sm:pl-[0.25em]">
           {text('hero.descriptor1', 'hero.descriptor1')}
         </p>
-        <p className="hero-entry hero-entry--desc2 mt-3 font-body text-sm tracking-[0.2em] sm:text-base sm:tracking-[0.25em] uppercase text-white/80 font-normal text-center max-w-[90vw]">
+        <p className="hero-entry hero-entry--desc2 mt-3 font-body text-sm tracking-[0.2em] sm:text-base sm:tracking-[0.25em] uppercase text-parchment/60 font-normal text-center max-w-[90vw] pl-[0.2em] sm:pl-[0.25em]">
           {text('hero.descriptor2', 'hero.descriptor2')}
         </p>
       </div>
 
       <div className="hero-entry hero-entry--cta absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
         <Link to={get('hero.ctaTo') || '/prelude'} className="flex flex-col items-center gap-4 group">
-          <span className="font-body text-sm tracking-[0.4em] uppercase text-white/85 group-hover:text-bronze-warm group-hover:tracking-[0.5em] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <span className="font-body text-sm tracking-[0.4em] uppercase text-parchment/70 pl-[0.4em] group-hover:text-bronze-warm group-hover:tracking-[0.5em] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
             {text('hero.enter', 'hero.enter')}
           </span>
           <div className="hero-cta-line h-12 w-px bg-bronze-warm/80 group-hover:h-16 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />

@@ -93,12 +93,12 @@ export default function Navigation() {
 
   // Light/dark color tokens for the bar
   const navBarClass = isLight
-    ? 'fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm border-b-[3px] border-[#B86A2E] py-5'
-    : 'fixed top-0 left-0 right-0 z-50 bg-deepblack/95 backdrop-blur-sm border-b-[3px] border-[#B86A2E] py-5';
+    ? 'fixed top-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-sm border-b-[1.5px] border-[#B86A2E] py-5'
+    : 'fixed top-0 left-0 right-0 z-50 bg-deepblack/95 backdrop-blur-sm border-b-[1.5px] border-[#B86A2E] py-5';
 
   const brandClass = isLight
     ? 'font-display text-sm tracking-[0.3em] sm:text-base sm:tracking-[0.4em] uppercase text-charcoal hover:text-deepblack transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]'
-    : 'font-display text-sm tracking-[0.3em] sm:text-base sm:tracking-[0.4em] uppercase text-white/90 hover:text-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]';
+    : 'font-display text-sm tracking-[0.3em] sm:text-base sm:tracking-[0.4em] uppercase text-parchment/85 hover:text-parchment transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]';
 
   const hamburgerBarColor = isLight ? 'bg-charcoal' : 'bg-white/85';
 
@@ -116,7 +116,7 @@ export default function Navigation() {
           <div ref={navRef} className="relative hidden md:flex items-center gap-10">
             {desktopItems.map((item) => {
               const active = location.pathname === item.path;
-              const inactiveColor = isLight ? 'text-charcoal/80 hover:text-deepblack' : 'text-white/85 hover:text-white';
+              const inactiveColor = isLight ? 'text-charcoal/80 hover:text-deepblack' : 'text-parchment/75 hover:text-parchment';
               return (
                 <Link
                   key={item.path}
